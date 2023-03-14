@@ -1,0 +1,89 @@
+﻿@model ShopBuy7.Models.Rank
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Rank</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RankId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gift" class="control-label"></label>
+                <input asp-for="Gift" class="form-control" />
+                <span asp-validation-for="Gift" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiftPrice" class="control-label"></label>
+                <input asp-for="GiftPrice" class="form-control" />
+                <span asp-validation-for="GiftPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiftImgUrl" class="control-label"></label>
+                <input asp-for="GiftImgUrl" class="form-control" />
+                <span asp-validation-for="GiftImgUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImgUrl" class="control-label"></label>
+                <input asp-for="ImgUrl" class="form-control" />
+                <span asp-validation-for="ImgUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Type" /> @Html.DisplayNameFor(model => model.Type)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeDuration" class="control-label"></label>
+                <input asp-for="TimeDuration" class="form-control" />
+                <span asp-validation-for="TimeDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Condition1DirectReferels" class="control-label"></label>
+                <input asp-for="Condition1DirectReferels" class="form-control" />
+                <span asp-validation-for="Condition1DirectReferels" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Condition2IndirectReferels" class="control-label"></label>
+                <input asp-for="Condition2IndirectReferels" class="form-control" />
+                <span asp-validation-for="Condition2IndirectReferels" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Condition3PV" class="control-label"></label>
+                <input asp-for="Condition3PV" class="form-control" />
+                <span asp-validation-for="Condition3PV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

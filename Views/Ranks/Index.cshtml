@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ShopBuy7.Models.Rank>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiftPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiftImgUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeDuration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Condition1DirectReferels)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Condition2IndirectReferels)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Condition3PV)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gift)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiftPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiftImgUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeDuration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condition1DirectReferels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condition2IndirectReferels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condition3PV)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RankId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RankId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RankId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

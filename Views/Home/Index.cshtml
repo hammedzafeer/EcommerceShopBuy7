@@ -1,0 +1,544 @@
+﻿@model ShopBuy7.Models.HomeModel
+@{
+    ViewData["Title"] = "Home";
+}
+<partial name="Slider" />
+
+<div class="container">
+
+    <div class="two-card row py-4 gap-1 justify-content-end">
+        <div class="owl-carousel owl-theme">
+            <div class="col-12 py-3 px-2" style="background-color: #f5f5f5; border-radius: 10px;">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-sm-6">
+                        <img class="w-100" src="https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" />
+                    </div>
+                    <div class="col-12 col-sm-6 p-2">
+                        <h4 class="card_header">Catch Big Deal of the Cameras</h4>
+                        <a>shop now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 py-3 px-2" style="background-color: #f5f5f5; border-radius: 10px;">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-sm-6">
+                        <img class="w-100" src="https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" />
+                    </div>
+                    <div class="col-12 col-sm-6 p-2">
+                        <h4 class="card_header">Catch Big Deal of the Cameras</h4>
+                        <a>shop now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 py-3 px-2" style="background-color: #f5f5f5; border-radius: 10px;">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-sm-6">
+                        <img class="w-100" src="https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" />
+                    </div>
+                    <div class="col-12 col-sm-6 p-2">
+                        <h4 class="card_header">Catch Big Deal of the Cameras</h4>
+                        <a>shop now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="dealheading col-lg-3 position-relative">
+            <div class="position-relative w-100">
+                <img class="w-100" src="~/images/homeDeal1.jpg" />
+                <a class="btn position-absolute" style="background: var(--BColor);left: 25%;bottom: 11%;width:auto;padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);" asp-action="">Start Buying</a>
+            </div>
+        </div>
+        <div class="col-12 col-lg-9">
+            <div class="row col-12 justify-content-end">
+                <div class="col-12  text-center" style="border-bottom: 1px solid #c1b1b1;padding-bottom: 3px;">
+                    <a id="Featured" class="cateBtn active" href="javascript:void(0)">Featured</a>
+                    <a id="OnSales" class="cateBtn" href="javascript:void(0)">On Sale</a>
+                    <a id="TopReted" class="cateBtn" href="javascript:void(0)">Top Reted</a>
+                </div>
+            </div>
+            @*Feature Item Main start*@
+
+            <div id="FeaturedItes" class="row gap-3 py-4 justify-content-end IndexcategoryItems">
+                <div class="col-12 overflow-hidden box-swiper">
+                    <div class="row flex-nowrap owl-carousel owl-theme">
+                        @*Feature Item*@
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Audio Speakers</p>
+                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
+                            <div>
+                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price redPrice"><span>$</span> 1999</h5>
+                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        @*Feature Item*@
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Audio Speakers</p>
+                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
+                            <div>
+                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price red"><span>$</span> 1999</h5>
+                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Laptops</p>
+                            <h5 class="card_heading">
+                                Tablet White EliteBook Revolve 810 G2
+                            </h5>
+                            <div>
+                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/LaptopYoga.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1300</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Audio Speakers</p>
+                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
+                            <div>
+                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1999</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*Feature Item Main End*@
+
+            @*On Sale Item Main start*@
+
+            <div id="OnsaleItems" class="row gap-3 py-4 justify-content-end IndexcategoryItems">
+                <div class="col-12 overflow-hidden box-swiper">
+                    <div class="row flex-nowrap owl-carousel owl-theme">
+                        @*Feature Item*@
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Headphones</p>
+                            <h5 class="card_heading">
+                                Purple Solo 2 Wireless
+                            </h5>
+                            <div>
+                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/1.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price red"><span>$</span> 1999</h5>
+                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        @*Feature Item*@
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">
+                                Headphone Cases
+                            </p>
+                            <h5 class="card_heading">
+                                Universal Headphones Case in Black
+                            </h5>
+                            <div>
+                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/headphone-case.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price red"><span>$</span> 1999</h5>
+                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Laptops</p>
+                            <h5 class="card_heading">
+                                Tablet White EliteBook Revolve 810 G2
+                            </h5>
+                            <div>
+                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/LaptopYoga.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1300</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Audio Speakers</p>
+                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
+                            <div>
+                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1999</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*Onsale Item Main End*@
+
+
+            @*Top Reting Item Main start*@
+
+            <div id="RatingItems" class="row gap-3 py-4 justify-content-end IndexcategoryItems">
+                <div class="col-12 overflow-hidden box-swiper">
+                    <div class="row flex-nowrap owl-carousel owl-theme">
+                        @*Feature Item*@
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Laptops</p>
+                            <h5 class="card_heading">
+                                Laptop WiFi CX61 2QF 15.6″ 4210M
+                            </h5>
+                            <div>
+                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/Laptop.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price red"><span>$</span> 1999</h5>
+                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        @*Feature Item*@
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Audio Speakers</p>
+                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
+                            <div>
+                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price red"><span>$</span> 1999</h5>
+                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Laptops</p>
+                            <h5 class="card_heading">
+                                Tablet White EliteBook Revolve 810 G2
+                            </h5>
+                            <div>
+                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/LaptopYoga.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1300</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        @*Feature Item*@
+
+                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
+                            <p class="card_text">Audio Speakers</p>
+                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
+                            <div>
+                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1999</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*Top Rating Item Main End*@
+
+        </div>
+    </div>
+
+    @*Deal of the week start*@
+    <div>
+        <div class="heading">
+            <h3 class="deal_heading_text">Deals of the Week</h3>
+        </div>
+        <div class="row p-2" style="border: 2px solid var(--BColor);border-radius: 1rem;box-shadow: var(--Shadow);">
+            <div class="col-12 col-md-6">
+                <div class="deal_img p-2">
+                    <img id="dealImg" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad-510x468.jpg" />
+                </div>
+                @*  </div>
+                <div class="col-2">*@
+                <div class="realted_deal">
+                    <div class="owl-carousel owl-theme">
+                        <div class="realted_deal_img p-2 active">
+                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad.jpg " />
+                        </div>
+                        <div class="realted_deal_img p-2">
+                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad.jpg" />
+                        </div>
+                        <div class="realted_deal_img p-2">
+                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad3.jpg" />
+                        </div>
+                        <div class="realted_deal_img p-2">
+                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad3.jpg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 py-3 px-2">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between align-item-center">
+                        <a class="pb-2">Previous Deal</a>
+                        <a class="pb-2">Next Deal</a>
+                    </div>
+                    <hr />
+                    <div class="pt-4 px-3 pb-3 d-flex justify-content-center">
+                        <h4 class="deal_heading">Game Console Controller + USB 3.0 Cable</h4>
+                    </div>
+                    <div class="row justify-content-center pb-2">
+                        <h5 class="col-4 text-end" style="font-family: var(--Mfont);text-decoration-line: line-through;">
+                            $99.00
+                        </h5>
+                        <h4 class="col-4 redPrice" style="font-family: var(--Pfont);">$79.00</h4>
+                    </div>
+                    <div class="row">
+                        <p class="col-6 text-start">Available:<strong>6</strong></p>
+                        <p class="col-6 text-end">Already Solid:<strong>28</strong></p>
+                    </div>
+                    <div>
+                        <span class="dealBar">
+                            <span class="dealBar1" style="width: 50%;"></span>
+                        </span>
+                    </div>
+                    <p class="text text-center pt-4 pb-2">Hurry Up!Offer ends in:</p>
+
+                    <div class="row time justify-content-center">
+                        <div>
+                            <span>08</span>
+                            Hours
+                        </div>
+                        :
+                        <div>
+                            <span>19</span>
+                            Mins
+                        </div>
+                        :
+                        <div>
+                            <span>54</span>
+                            Secs
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*All Category wise Items start*@
+    <section class="row pt-5">
+        <div class="col-4">
+        </div>
+        <div class="col-8">
+            <div class="row" style="border-bottom: 1px solid var(--BorderColor)">
+                <h4 class="col-3 heading_text ps-0">BestSallers</h4>
+                <div class="col-9 text-end">
+                    <a class="roundBtn">Top 20</a>
+                    <a class="roundBtn">Phones & Tablet</a>
+                    <a class="roundBtn">laptops & Computer</a>
+                    <a class="roundBtn">Vedio Cameras</a>
+                </div>
+            </div>
+            <div class="row py-3">
+                <div class="col-6 ecard py-3 px-2">
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            <div>
+                                <img src="https://sansomic.tech/wp-content/uploads/2016/03/DekstopPC-1.jpg" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p>Laptops</p>
+                            <h5 class="cart_card_heading">
+                                Aerocool EN52377 Dead Silence Gaming Cube Case
+                            </h5>
+                            <div class="d-flex justify-content-between align-items-center pt-4">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1999</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 ecard py-3 px-2">
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            <div>
+                                <img src="https://sansomic.tech/wp-content/uploads/2016/03/Full-Color-LaserJet-Pro-M452dn.jpg" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p>Printers</p>
+                            <h5 class="cart_card_heading">
+                                Full Color LaserJet Pro M452dn
+                            </h5>
+                            <div class="d-flex justify-content-between align-items-center pt-4">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1999</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 ecard py-3 px-2">
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            <div>
+                                <img src="https://sansomic.tech/wp-content/uploads/2016/03/Photocamera.jpg" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p>Cameras</p>
+                            <h5 class="cart_card_heading">
+                                White NX Mini F1 SMART NX
+                            </h5>
+                            <div class="d-flex justify-content-between align-items-center pt-4">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1999</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 ecard py-3 px-2">
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            <div>
+                                <img src="https://sansomic.tech/wp-content/uploads/2016/03/GoldPhone.jpg" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p>Smartphone</p>
+                            <h5 class="cart_card_heading">
+                                Smartphone 6S 64GB LTE
+                            </h5>
+                            <div class="d-flex justify-content-between align-items-center pt-4">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="card_price"><span>$</span> 1200</h5>
+                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                </div>
+                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+    @*All Category wise Items end*@
+    @*Deal of the week End*@
+
+</div>
+@*<script src="~/js/swiper-bundle.min.js" />*@
+<script>
+    let f = document.getElementById("Featured");
+    let o = document.getElementById("OnSales");
+    let t = document.getElementById("TopReted");
+    let fItem = document.getElementById("FeaturedItes");
+    let oItem = document.getElementById("OnsaleItems");
+    let tItem = document.getElementById("RatingItems");
+    f.addEventListener("click", () => {
+        f.classList.add("active");
+        o.classList.remove("active");
+        t.classList.remove("active");
+        fItem.style.display = "block";
+        oItem.style.display = "none";
+        tItem.style.display = "none";
+    })
+    o.addEventListener("click", () => {
+        f.classList.remove("active");
+        o.classList.add("active");
+        t.classList.remove("active");
+        fItem.style.display = "none";
+        oItem.style.display = "block";
+        tItem.style.display = "none";
+    })
+    t.addEventListener("click", () => {
+        f.classList.remove("active");
+        o.classList.remove("active");
+        t.classList.add("active");
+        fItem.style.display = "none";
+        oItem.style.display = "none";
+        tItem.style.display = "block";
+    })
+    let deal = document.getElementsByClassName("realted_deal_img");
+
+    for (let i = 0; i < deal.length; i++) {
+        deal[i].addEventListener("click", (e) => {
+            document.getElementById("dealImg").src = e.target.src;
+            for (let i = 0; i < deal.length; i++) {
+                deal[i].classList.remove("active")
+
+            }
+            e.target.parentElement.classList.add("active")
+        })
+    }
+                        //deal.addEventListener("click", (e) => {
+                        //    console.log("OK")
+                        //    console.log(e.target)
+                        //})
+</script>

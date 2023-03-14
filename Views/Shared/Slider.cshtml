@@ -1,0 +1,92 @@
+﻿<link rel="stylesheet" type="text/css" href="~/lib/sliderengine/amazingslider-1.css" />
+<style>
+    .amazingslider-arrow-left-1{
+        left: 50px !important;
+    }
+    .amazingslider-arrow-right-1{
+        right: 50px !important;
+    }
+
+    .amazingslider-wrapper{
+        overflow: hidden;
+    }
+    .amazingslider-social-1{
+        right: 20px !important;
+    }
+</style>
+@*
+<div class="amazingslider-wrapper" id="amazingslider-wrapper-1" style="display:block;position:relative;max-width:900px;margin:0px auto 0px;">
+    <div class="amazingslider" id="amazingslider-1" style="display:block;position:relative;margin:0 auto;">
+        <div class="position-absolute d-block bg-white" style="z-index: 1000000; width: 170px">E-commerce</div>
+
+        <ul class="amazingslider-slides" style="display:none;">
+            <li>
+                <img src="~/images/AdobeStock_211280049_Preview.jpeg" alt="AdobeStock_211280049_Preview" title="AdobeStock_211280049_Preview" />
+            </li>
+            <li>
+                <img src="~/images/AdobeStock_417424174_Preview.jpeg" alt="AdobeStock_417424174_Preview" title="AdobeStock_417424174_Preview" />
+            </li>
+            <li>
+                <img src="~/images/AdobeStock_417425751_Preview.jpeg" alt="AdobeStock_417425751_Preview" title="AdobeStock_417425751_Preview" />
+            </li>
+            <li>
+                <img src="~/images/banner1.jpg" alt="banner1" title="banner1" />
+            </li>
+            <li>
+                <img src="~/images/banner2.jpg" alt="banner2" title="banner2" />
+            </li>
+            <li>
+                <img src="~/images/banner3.jpg" />
+            </li>
+        </ul>
+        <ul class="amazingslider-thumbnails" style="display:none;">
+            <li><img src="~/images/AdobeStock_211280049_Preview-tn.jpeg" alt="AdobeStock_211280049_Preview" title="AdobeStock_211280049_Preview" /></li>
+            <li><img src="~/images/AdobeStock_417424174_Preview-tn.jpeg" alt="AdobeStock_417424174_Preview" title="AdobeStock_417424174_Preview" /></li>
+            <li><img src="~/images/AdobeStock_417425751_Preview-tn.jpeg" alt="AdobeStock_417425751_Preview" title="AdobeStock_417425751_Preview" /></li>
+            <li><img src="~/images/banner1-tn.jpg" alt="banner1" title="banner1" /></li>
+            <li><img src="~/images/banner2-tn.jpg" alt="banner2" title="banner2" /></li>
+            <li><img src="~/images/banner3-tn.jpg" /></li>
+        </ul>
+      <div class="amazingslider-engine"><a href="http://amazingslider.com" title="jQuery Content Slider">jQuery Content Slider</a></div>
+    </div>
+</div>*@
+
+<div class="amazingslider-wrapper" id="amazingslider-wrapper-1" style="display:block;position:relative;max-width:100%;margin:0 auto;">
+    <div class="amazingslider" id="amazingslider-1" style="display:block;position:relative;margin:0 auto;">
+        <div class="position-absolute d-block bg-white" style="z-index: 1000000; width: 170px">E-commerce</div>
+
+        <ul class="amazingslider-slides" style="display:none;">
+            @foreach (var banner in Model.Banners)
+            {
+                <li>
+                    <a asp-action="@banner.LandingLink">
+                    <img src="@("/images/banners/" + banner.WebImgUrl)" alt="SHOPBUY7" />
+                    </a>
+                </li>
+            }
+           
+        </ul>
+        <ul class="amazingslider-thumbnails" style="display:none;">
+            @*<li><img src="~/images/AdobeStock_211280049_Preview-tn.jpeg" alt="AdobeStock_211280049_Preview" title="AdobeStock_211280049_Preview" /></li>
+            <li><img src="~/images/AdobeStock_417424174_Preview-tn.jpeg" alt="AdobeStock_417424174_Preview" title="AdobeStock_417424174_Preview" /></li>
+            <li><img src="~/images/AdobeStock_417425751_Preview-tn.jpeg" alt="AdobeStock_417425751_Preview" title="AdobeStock_417425751_Preview" /></li>
+            <li><img src="~/images/banner1-tn.jpg" alt="banner1" title="banner1" /></li>
+            <li><img src="~/images/banner2-tn.jpg" alt="banner2" title="banner2" /></li>
+            <li><img src="~/images/banner3-tn.jpg" /></li>*@
+             @foreach (var banner in Model.Banners)
+            {
+                <li>
+                    <img src="@("~/images/banner/" + banner.WebImgUrl)" alt="@("SHOPBUY7" + banner.WebImgUrl)" />
+                </li>
+            }
+        </ul>
+        <div class="amazingslider-engine"><a href="http://amazingslider.com" title="JavaScript Image Slider">JavaScript Image Slider</a></div>
+    </div>
+</div>
+
+
+<script src="~/lib/sliderengine/jquery.js"></script>
+<script src="~/lib/sliderengine/amazingslider.js"></script>
+<script src="~/lib/sliderengine/initslider-1.js"></script>
+@*<script src="~/lib/slidesjs/jquery.slides.js"></script>*@
+

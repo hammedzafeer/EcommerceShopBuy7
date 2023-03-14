@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "slidesjs@3.0",
+      "destination": "wwwroot/lib/slidesjs/"
+    }
+
+  ]
+}
