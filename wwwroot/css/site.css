@@ -18,6 +18,7 @@
     --BorderColor: #97a0a5b8;
     --GrayColor: #211d1da3;
     --white: #fff;
+    --hWhite: #fdfdfd;
     --Shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
@@ -34,11 +35,16 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--Htext);
 }
 
+.hide {
+    display: none;
+}
+
 a {
     text-decoration: none !important;
     cursor: pointer;
     color: var(--Stext);
 }
+
 img {
     width: 100%;
     height: 100%;
@@ -75,7 +81,17 @@ img {
     width: fit-content;
 }
 
-    .heading_text::after {
+.heading_text_sm {
+    color: var(--Htext);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    border-width: 0;
+    position: relative;
+    width: fit-content;
+}
+
+    .heading_text::after,
+    .heading_text_sm::after {
         content: '';
         display: flex;
         width: 100%;
@@ -87,7 +103,8 @@ img {
         left: 0;
     }
 
-    .heading_text:hover::after {
+    .heading_text:hover::after,
+    .heading_text_sm:hover::after {
         width: 0%;
         color: #000;
         font-weight: 600;
@@ -333,6 +350,7 @@ header .nav_support div a {
     height: 75px;
     overflow: hidden;
 }
+
 .cart_card_heading {
     letter-spacing: 1px;
     line-height: 2rem;
@@ -385,6 +403,8 @@ header .nav_support div a {
     cursor: pointer;
     border-radius: 10px;
     margin-bottom: 0.7rem;
+    /*    background: red;
+*/
 }
 
     .ecard:hover {
@@ -601,17 +621,59 @@ header .nav_support div a {
 /*@*All Category wise Items start*@*/
 .roundBtn {
     border: 1px solid var(--BColor);
-    padding: 5px 8px;
+    padding: 1px 8px;
     border-radius: 1rem;
+    width: fit-content;
 }
 
-    .roundBtn:hover {
+    .roundBtn:hover,
+    .roundBtn.active {
         background: var(--BColor);
-        color: var(--white);
+        /*color: var(--white);*/
+        border: 1px solid var(--BorderColor);
     }
+
 /*@*All Category wise Items start*@*/
-@media screen and (min-width: 768px) {
-    .two-card .col-md-4 {
+.latest .owl-nav {
+    position: absolute !important;
+    top: -10%;
+    right: 0;
+}
+
+    .latest .owl-nav .owl-prev,
+    .latest .owl-nav .owl-next {
+        font-size: 1.6rem !important;
+    }
+
+/*Banner AndHelp*/
+.customHelp {
+    background: var(--hWhite);
+    border: 1px solid var(--BorderColor);
+    border-radius: 10px;
+}
+
+    .customHelp .helpCard {
+        background: var(--hWhite);
+        border-bottom: 2px solid var(--BorderColor);
+    }
+        .customHelp .helpCard h5 {
+            font-weight: 600;
+        }
+        .customHelp .helpCard p {
+            font-size: 1.2rem;
+            font-weight: 200;
+            font-family: var(--Mfont);
+        }
+.banner_text {
+    border-right: 1px solid var(--BorderColor);
+}
+    .banner_text::after{
+        content: "";
+    }
+
+
+    @media screen and (min-width: 768px) {
+        .two-card .col-md-4 {
         flex: 0 0 auto;
         width: 33%;
     }
@@ -620,6 +682,11 @@ header .nav_support div a {
 @media screen and (min-width: 991px) {
     .owl-carousel .owl-item img {
         height: 210px;
+    }
+
+    .BestSaller .owl-carousel .owl-item img,
+    .latest .owl-carousel .owl-item img {
+        height: 100%;
     }
 }
 
@@ -648,11 +715,51 @@ header .nav_support div a {
         margin-top: 1rem;
         margin-bottom: 0.7rem;
     }
+
+    .latest .owl-nav {
+        position: absolute;
+        top: -6% !important;
+        right: -15px !important;
+    }
+    .customHelp {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex: 0 0 100%;
+        flex-wrap: wrap;
+    
+    }
+        .customHelp .helpCard {
+            border-right: 1px solid var(--BorderColor);
+            border-bottom: none;
+            width: 20%;
+            FLEX: 0 0 20%;
+        }
+        .customHelp .helpCard:last-child {
+            border-right: none;
+            border-bottom: none;
+        }
+    .helpcardImg{
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .helpcardText {
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .search_category {
         margin-bottom: 1rem;
+    }
+
+    .cart_card_heading {
+        /*height: 70px;*/
+    }
+    .customHelp .helpCard {
+        border-bottom: none;
+        width: 49%;
+        FLEX: 0 0 49%;
     }
 }
 
@@ -676,5 +783,17 @@ header .nav_support div a {
 
     header .navbar .navbar-brand {
         width: 40%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .cart_card_heading {
+        height: 70px;
+    }
+
+    .latest .owl-nav {
+        position: absolute;
+        top: -3% !important;
+        right: 0 !important;
     }
 }

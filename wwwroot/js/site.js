@@ -119,3 +119,39 @@ $('.realted_deal .owl-carousel').owlCarousel({
         }
     }
 })
+
+
+$('.BestSaller .owl-carousel').owlCarousel({
+    loop: true,
+    autoplay: true,
+    dots: true,
+    nav: false,
+    responsiveClass: true,
+    paginationSpeed: true,
+    margin: 1,
+    responsive: {
+        0: {
+            items: 1
+        },
+        768: {
+            items: 1
+        },
+        991: {
+            items: 2
+        }
+    }
+})
+$('.latest .owl-carousel').owlCarousel({
+    loop: true,
+    autoplay: false,
+    dots: false,
+    nav: true,
+    responsiveClass: true,
+    paginationSpeed: true,
+    margin: 7,
+    responsive: {
+        0: {
+            items: 1
+        }
+    }
+})
