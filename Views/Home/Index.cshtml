@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-12 col-sm-6 p-2">
                         <h4 class="card_header">Catch Big Deal of the Cameras</h4>
-                        <a>shop now</a>
+                        <a class="shopNowBtn">shop now <span>></span></a>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-12 col-sm-6 p-2">
                         <h4 class="card_header">Catch Big Deal of the Cameras</h4>
-                        <a>shop now</a>
+                        <a class="shopNowBtn">shop now <span>></span></a>
                     </div>
                 </div>
             </div>
@@ -38,17 +38,17 @@
                     </div>
                     <div class="col-12 col-sm-6 p-2">
                         <h4 class="card_header">Catch Big Deal of the Cameras</h4>
-                        <a>shop now</a>
+                        <a class="shopNowBtn">shop now <span>></span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    @*Featured Topsale And TopRated*@
     <div class="row">
         <div class="dealheading col-lg-3 position-relative">
             <div class="position-relative w-100">
-                <img class="w-100" src="~/images/homeDeal1.jpg" />
+                <img class="w-100" src="~/images/OtherBanner/homeDeal1.jpg" />
                 <a class="btn position-absolute" style="background: var(--BColor);left: 25%;bottom: 11%;width:auto;padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);" asp-action="">Start Buying</a>
             </div>
         </div>
@@ -65,72 +65,35 @@
             <div id="FeaturedItes" class="row gap-3 py-4 justify-content-end IndexcategoryItems">
                 <div class="col-12 overflow-hidden box-swiper">
                     <div class="row flex-nowrap owl-carousel owl-theme">
-                        @*Feature Item*@
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Audio Speakers</p>
-                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
-                            <div>
-                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price redPrice"><span>$</span> 1999</h5>
-                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
-                                </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
-                        @*Feature Item*@
+                        @foreach (var featured in Model.Featured)
+                        {
+                            @*Feature Item*@
+                            <div class="ecard p-2 col-12 position-relative" style="border-right: 1px solid #c1b1b1">
 
-                        @*Feature Item*@
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Audio Speakers</p>
-                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
-                            <div>
-                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price red"><span>$</span> 1999</h5>
-                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
-                                </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
-                        @*Feature Item*@
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%;">PV : @(featured.ProfitPoints)</span>
 
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Laptops</p>
-                            <h5 class="card_heading">
-                                Tablet White EliteBook Revolve 810 G2
-                            </h5>
-                            <div>
-                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/LaptopYoga.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 1300</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
                                 </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <h5 class="card_heading">@featured.ShortName</h5>
+                                <div>
+                                    <img class="w-100" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
+                                        @if (featured.MarkedPrice > featured.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@featured.MarkedPrice</p>
+                                        }
+                                    </div>
+                                    <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </div>
                             </div>
-                        </div>
-                        @*Feature Item*@
+                            @*Feature Item*@
+                        }
 
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Audio Speakers</p>
-                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
-                            <div>
-                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 1999</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -142,78 +105,31 @@
             <div id="OnsaleItems" class="row gap-3 py-4 justify-content-end IndexcategoryItems">
                 <div class="col-12 overflow-hidden box-swiper">
                     <div class="row flex-nowrap owl-carousel owl-theme">
-                        @*Feature Item*@
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Headphones</p>
-                            <h5 class="card_heading">
-                                Purple Solo 2 Wireless
-                            </h5>
-                            <div>
-                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/1.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price red"><span>$</span> 1999</h5>
-                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                        @foreach (var onSale in Model.OnSale)
+                        {
+                            @*Feature Item*@
+                            <div class="ecard p-2 col-12 position-relative" style="border-right: 1px solid #c1b1b1">
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%;">PV : @(onSale.ProfitPoints)</span>
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@onSale.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@onSale.CatName</a>
                                 </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
-                        @*Feature Item*@
-
-                        @*Feature Item*@
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">
-                                Headphone Cases
-                            </p>
-                            <h5 class="card_heading">
-                                Universal Headphones Case in Black
-                            </h5>
-                            <div>
-                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/headphone-case.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price red"><span>$</span> 1999</h5>
-                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                <h5 class="card_heading">@onSale.ShortName</h5>
+                                <div>
+                                    <img class="w-100" src="@("/images/Products/" + onSale.FkCustomerId + "/" + onSale.ImgUrl)" alt="" />
                                 </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
-                        @*Feature Item*@
-
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Laptops</p>
-                            <h5 class="card_heading">
-                                Tablet White EliteBook Revolve 810 G2
-                            </h5>
-                            <div>
-                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/LaptopYoga.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 1300</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="@("card_price " + (onSale.MarkedPrice > onSale.SalePrice ? "redPrice" : ""))">@Global.Currancy@onSale.SalePrice</h5>
+                                        @if (onSale.MarkedPrice > onSale.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@onSale.MarkedPrice</p>
+                                        }
+                                    </div>
+                                    <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
                                 </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
                             </div>
-                        </div>
-                        @*Feature Item*@
-
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Audio Speakers</p>
-                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
-                            <div>
-                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 1999</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
+                            @*Feature Item*@
+                        }
                     </div>
 
                 </div>
@@ -226,74 +142,32 @@
             <div id="RatingItems" class="row gap-3 py-4 justify-content-end IndexcategoryItems">
                 <div class="col-12 overflow-hidden box-swiper">
                     <div class="row flex-nowrap owl-carousel owl-theme">
-                        @*Feature Item*@
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Laptops</p>
-                            <h5 class="card_heading">
-                                Laptop WiFi CX61 2QF 15.6″ 4210M
-                            </h5>
-                            <div>
-                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/Laptop.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price red"><span>$</span> 1999</h5>
-                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                        @foreach (var topRated in Model.TopRated)
+                        {
+                            @*Feature Item*@
+                            <div class="ecard p-2 col-12 position-relative" style="border-right: 1px solid #c1b1b1">
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%;">PV : @(topRated.ProfitPoints)</span>
+                                <div class="abtnMain">
+                                    @*<p class="card_text">@featured.FkCategoryId</p>*@
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@topRated.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@topRated.CatName</a>
                                 </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
-                        @*Feature Item*@
-
-                        @*Feature Item*@
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Audio Speakers</p>
-                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
-                            <div>
-                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price red"><span>$</span> 1999</h5>
-                                    <p class="card_pre_price"><span>$</span> 2999.09</p>
+                                <h5 class="card_heading">@topRated.ShortName</h5>
+                                <div>
+                                    <img class="w-100" src="@("/images/Products/" + topRated.FkCustomerId + "/" + topRated.ImgUrl)" alt="" />
                                 </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
-                        @*Feature Item*@
-
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Laptops</p>
-                            <h5 class="card_heading">
-                                Tablet White EliteBook Revolve 810 G2
-                            </h5>
-                            <div>
-                                <img class="w-100" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/LaptopYoga.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 1300</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="@("card_price " + (topRated.MarkedPrice > topRated.SalePrice ? "redPrice" : ""))">@Global.Currancy@topRated.SalePrice</h5>
+                                        @if (topRated.MarkedPrice > topRated.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@topRated.MarkedPrice</p>
+                                        }
+                                    </div>
+                                    <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
                                 </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
                             </div>
-                        </div>
-                        @*Feature Item*@
-
-                        <div class="ecard p-2 col-12 " style="border-right: 1px solid #c1b1b1">
-                            <p class="card_text">Audio Speakers</p>
-                            <h5 class="card_heading">Wireless Audio System Multiroom 360</h5>
-                            <div>
-                                <img class="w-100" src="https://sansomic.tech/wp-content/uploads/2016/03/WirelessSound.jpg" />
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 1999</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                                <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            </div>
-                        </div>
+                            @*Feature Item*@
+                        }
                     </div>
                 </div>
             </div>
@@ -301,203 +175,151 @@
 
         </div>
     </div>
-
+    @*Featured Topsale And TopRated*@
     @*Deal of the week start*@
-    <div>
-        <div class="heading">
-            <h3 class="deal_heading_text">Deals of the Week</h3>
-        </div>
-        <div class="row p-2" style="border: 2px solid var(--BColor);border-radius: 1rem;box-shadow: var(--Shadow);">
-            <div class="col-12 col-md-6">
-                <div class="deal_img p-2">
-                    <img id="dealImg" src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad-510x468.jpg" />
-                </div>
-                @*  </div>
-                <div class="col-2">*@
-                <div class="realted_deal">
-                    <div class="owl-carousel owl-theme">
-                        <div class="realted_deal_img p-2 active">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad.jpg " />
-                        </div>
-                        <div class="realted_deal_img p-2">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad.jpg" />
-                        </div>
-                        <div class="realted_deal_img p-2">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad3.jpg" />
-                        </div>
-                        <div class="realted_deal_img p-2">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GamePad3.jpg" />
-                        </div>
-                    </div>
-                </div>
+    @if (Model.Deals.Count != 0)
+    {
+        <div class="">
+            <div class="heading">
+                <h3 class="deal_heading_text">Deals of the Week</h3>
             </div>
-            <div class="col-12 col-md-6 py-3 px-2">
-                <div class="row">
-                    <div class="col-12 d-flex justify-content-between align-item-center">
-                        <a class="pb-2">Previous Deal</a>
-                        <a class="pb-2">Next Deal</a>
-                    </div>
-                    <hr />
-                    <div class="pt-4 px-3 pb-3 d-flex justify-content-center">
-                        <h4 class="deal_heading">Game Console Controller + USB 3.0 Cable</h4>
-                    </div>
-                    <div class="row justify-content-center pb-2">
-                        <h5 class="col-4 text-end" style="font-family: var(--Mfont);text-decoration-line: line-through;">
-                            $99.00
-                        </h5>
-                        <h4 class="col-4 redPrice" style="font-family: var(--Pfont);">$79.00</h4>
-                    </div>
-                    <div class="row">
-                        <p class="col-6 text-start">Available:<strong>6</strong></p>
-                        <p class="col-6 text-end">Already Solid:<strong>28</strong></p>
-                    </div>
-                    <div>
-                        <span class="dealBar">
-                            <span class="dealBar1" style="width: 50%;"></span>
-                        </span>
-                    </div>
-                    <p class="text text-center pt-4 pb-2">Hurry Up!Offer ends in:</p>
+            <div class="row one-card owl-carousel owl-themes mainDeals" style="flex-wrap: nowrap; overflow: hidden; position: relative;">
+                @foreach (var d in Model.Deals)
+                {
+                    <div class="deals row p-2 col-12" style="border: 2px solid var(--BColor);border-radius: 1rem;box-shadow: var(--Shadow);">
+                        <div class="col-12 col-md-6">
+                            <div class="deal_img p-2">
+                                <img id="dealImg" src="@("/images/Products/" + d.Product.FkCustomerId + "/" + d.Product.ImgUrl)" />
+                            </div>
+                            @*  </div>
+                    <div class="col-2">*@
+                            <div class="realted_deal">
+                                <div class="owl-carousel owl-theme">
+                                    @foreach (var sImage in d.Images)
+                                    {
+                                        <div class="realted_deal_img p-2 d-flex justify-content-center align-items-center">
+                                            <img src="@("/images/Products/" + d.Product.FkCustomerId + "/" + sImage.ImgUrl)" />
+                                        </div>
+                                    }
 
-                    <div class="row time justify-content-center">
-                        <div>
-                            <span>08</span>
-                            Hours
+                                </div>
+                            </div>
                         </div>
-                        :
-                        <div>
-                            <span>19</span>
-                            Mins
-                        </div>
-                        :
-                        <div>
-                            <span>54</span>
-                            Secs
+                        <div class="col-12 col-md-6 py-3 px-2">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-between align-item-center p-2">
+                                    @* <a class="pb-2 owl-prev disabled" role="presentation" onclick="changeDeals(-1)"><span aria-label="Previous">Previous Deal</span></a>
+                            <a class="pb-2" onclick="changeDeals(1)">Next Deal</a>*@
+                                </div>
+                                <hr />
+                                <div class="pt-4 px-3 pb-3 d-flex justify-content-center">
+                                    <h4 class="deal_heading">@d.Product.ShortName</h4>
+                                </div>
+                                <div class="row justify-content-center pb-2">
+                                    <h5 class="col-4 col-md-12 col-lg-4 dealMprice" style="font-family: var(--Mfont);text-decoration-line: line-through;">
+                                        @Global.Currancy@d.Product.MarkedPrice
+                                    </h5>
+                                    <h4 class="col-4 col-md-12 col-lg-4 redPrice dealSprice" style="font-family: var(--Pfont);">
+                                        @Global.Currancy@d.Product.SalePrice
+                                    </h4>
+                                </div>
+                                <div class="row">
+                                    <p class="col-6 text-start">Available:<strong class="dealAvailable">@d.Product.AvailableQuantity</strong></p>
+                                    <p class="col-6 text-end">Already Solid:<strong class="dealSold">@d.Sold</strong></p>
+                                </div>
+                                <div>
+                                    <span class="dealBar">
+                                        <span class="dealBar1" style="width: 0%;"></span>
+                                    </span>
+                                </div>
+                                <p class="text text-center pt-4 pb-2">Hurry Up!Offer ends in:</p>
+
+                                <div class="row time justify-content-center">
+
+                                    <div>
+                                        <span class="days">@d.RemainingTime.Days</span>
+                                        Days
+                                    </div>
+                                    :
+                                    <div>
+                                        <span class="hour">@d.RemainingTime.Hours</span>
+                                        Hours
+                                    </div>
+                                    :
+                                    <div>
+                                        <span class="min">@d.RemainingTime.Minutes</span>
+                                        Mins
+                                    </div>
+                                    :
+                                    <div>
+                                        <span class="sec">@d.RemainingTime.Seconds</span>
+                                        Secs
+                                    </div>
+                                    @*<p>@d.RemainingTime</p>*@
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
-    </div>
+    }
     @*Deal of the week End*@
 
     @*All Category wise Items start*@
     <section class="row pt-5 gap-3 justify-content-between">
-        <div class="col-12 col-sm-3 latest position-relative">
+        <div class="col-12 col-lg-3 latest position-relative">
             <div class="row" style="border-bottom: 1px solid var(--BorderColor)">
                 <h4 class="heading_text_sm ps-0">Latest Product</h4>
             </div>
             <div class="owl-carousel owl-theme">
-                <div class="row pt-3 justify-content-center">
-                    <div class="row ecard col-12 py-3 px-2">
-                        <div class="col-12 col-lg-5">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/hd-camera.jpg" />
-                        </div>
-                        <div class="col-12 col-lg-7">
-                            <h5>
-                                Camera C430W 4k Waterproof
-                            </h5>
-                            <div class="d-flex justify-content-between align-items-center pt-4">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 99</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                @foreach (var l in Model.Products)
+                {
+                    <div class="row pt-3 justify-content-center">
+                        <div class="row ecard col-11 py-3 px-2 position-relative">
+                            <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%; width: fit-content;">PV : @(l.ProfitPoints)</span>
+
+                            @*<p class="card_text">@featured.CatName</p>*@
+                            <div class="abtnMain" style="width: fit-content;">
+                                <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@l.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@l.CatName</a>
+                            </div>
+                            <div class="col-12">
+                                <img class="w-100" src="@("/images/Products/" + l.FkCustomerId + "/" + l.ImgUrl)" alt="" />
+                            </div>
+                            <div class="col-12">
+                                <h5 class="text-center">
+                                    @l.ShortName
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center pt-4">
+                                    <div class="d-flex justify-content-center w-100 align-items-center">
+                                        <h5 class="@("card_price " + (l.MarkedPrice > l.SalePrice ? "redPrice" : ""))">@Global.Currancy@l.SalePrice</h5>
+                                        @if (l.MarkedPrice > l.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@l.MarkedPrice</p>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="row ecard col-12 py-3 px-2">
-                        <div class="col-12 col-lg-5">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GoldPhone.jpg" />
-                        </div>
-                        <div class="col-12 col-lg-7">
-                            <h5>
-                                Smartphone 6S 64GB LTE
-                            </h5>
-                            <div class="d-flex justify-content-between align-items-center pt-4">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 99</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ecard col-12 py-3 px-2">
-                        <div class="col-12 col-lg-5">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/headphone-usb-wires.jpg" />
-                        </div>
-                        <div class="col-12 col-lg-7">
-                            <h5>
-                                Headphones USB Wires
-                            </h5>
-                            <div class="d-flex justify-content-between align-items-center pt-4">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 99</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row pt-3 justify-content-center">
-                    <div class="row ecard col-12 py-3 px-2">
-                        <div class="col-12 col-lg-5">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/hd-camera.jpg" />
-                        </div>
-                        <div class="col-12 col-lg-7">
-                            <h5>
-                                Camera C430W 4k Waterproof
-                            </h5>
-                            <div class="d-flex justify-content-between align-items-center pt-4">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 99</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ecard col-12 py-3 px-2">
-                        <div class="col-12 col-lg-5">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/GoldPhone.jpg" />
-                        </div>
-                        <div class="col-12 col-lg-7">
-                            <h5>
-                                Smartphone 6S 64GB LTE
-                            </h5>
-                            <div class="d-flex justify-content-between align-items-center pt-4">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 99</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ecard col-12 py-3 px-2">
-                        <div class="col-12 col-lg-5">
-                            <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/headphone-usb-wires.jpg" />
-                        </div>
-                        <div class="col-12 col-lg-7">
-                            <h5>
-                                Headphones USB Wires
-                            </h5>
-                            <div class="d-flex justify-content-between align-items-center pt-4">
-                                <div class="d-flex align-items-center">
-                                    <h5 class="card_price"><span>$</span> 99</h5>
-                                    @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
-        <div class="col-12 col-sm-8">
-            <div class="row justify-content-between" style="border-bottom: 1px solid var(--BorderColor)">
-                <h4 class="col-12 col-lg-3 heading_text ps-0">BestSallers</h4>
-                <div class="col-12 row gap-2 justify-content-end align-items-center col-lg-9 text-end">
+        <div class="col-12 col-lg-8">
+            <div class="row gap-2 justify-content-between" style="border-bottom: 1px solid var(--BorderColor)">
+                <h4 class="col-3 heading_text ps-0">BestSallers</h4>
+              
+                <div class="col-12 row gap-2 justify-content-end align-items-center col-md-9 text-end">
                     <a class="roundBtn active">Top 20</a>
                     <a class="roundBtn">Phones & Tablet</a>
                     <a class="roundBtn">laptops & Computer</a>
-                    <a class="roundBtn">Vedio Cameras</a>
                 </div>
+              @*  <select class="col-6 btn_768_show" >
+                    <option>Top 20</option>
+                    <option>Top 20</option>
+                    <option>Top 20</option>
+                </select>*@
             </div>
 
             @*Top 20 Items*@
@@ -505,94 +327,48 @@
                 <p class="boxActive" hidden>Top 20</p>
                 <div class="row py-3">
                     <div class="owl-carousel owl-theme ">
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/DekstopPC-1.jpg" />
-                                    </div>
+                        @foreach (var top in Model.Products)
+                        {
+                            <div class="col-12 ecard py-3 my-2 px-2 position-relative">
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 3%;">PV : @(top.ProfitPoints)</span>
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@top.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@top.CatName</a>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Laptops</p>
-                                    <h5 class="cart_card_heading">
-                                        Aerocool EN52377 Dead Silence Gaming Cube Case
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <img class="w-100" src="@("/images/Products/" + top.FkCustomerId + "/" + top.ImgUrl)" alt="" />
+
                                         </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        @foreach (var c in Model.Categories)
+                                        {
+                                            @if (c.CategoryId == top.FkCategoryId)
+                                            {
+                                                <p class="card_text">@c.Name</p>
+                                            }
+                                        }
+                                        @*<p>Laptops</p>*@
+                                        <h5 class="cart_card_heading">
+                                            @top.ShortName
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center pt-4">
+                                            <div class="d-block align-items-center">
+                                                <h5 class="@("card_price " + (top.MarkedPrice > top.SalePrice ? "redPrice" : ""))">@Global.Currancy@top.SalePrice</h5>
+                                                @if (top.MarkedPrice > top.SalePrice)
+                                                {
+                                                    <p class="card_pre_price">@Global.Currancy@top.MarkedPrice</p>
+                                                }
+                                            </div>
+                                            <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/Full-Color-LaserJet-Pro-M452dn.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Printers</p>
-                                    <h5 class="cart_card_heading">
-                                        Full Color LaserJet Pro M452dn
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/Photocamera.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Cameras</p>
-                                    <h5 class="cart_card_heading">
-                                        White NX Mini F1 SMART NX
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/GoldPhone.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Smartphone</p>
-                                    <h5 class="cart_card_heading">
-                                        Smartphone 6S 64GB LTE
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1200</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -602,94 +378,47 @@
                 <p class="boxActive" hidden>Phones & Tablet</p>
                 <div class="row py-3">
                     <div class="owl-carousel owl-theme ">
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/Smartphone6.jpg" />
-                                    </div>
+                        @foreach (var top in Model.Products)
+                        {
+                            <div class="col-12 ecard py-3 my-2 px-2 position-relative">
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 3%;">PV : @(top.ProfitPoints)</span>
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@top.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@top.CatName</a>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Smartphones</p>
-                                    <h5 class="cart_card_heading">
-                                        Tablet Thin EliteBook Revolve 810 G6
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 120</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <img class="w-100" src="@("/images/Products/" + top.FkCustomerId + "/" + top.ImgUrl)" alt="" />
+
                                         </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        @foreach (var c in Model.Categories)
+                                        {
+                                            @if (c.CategoryId == top.FkCategoryId)
+                                            {
+                                                <p class="card_text">@c.Name</p>
+                                            }
+                                        }
+                                        @*<p>Laptops</p>*@
+                                        <h5 class="cart_card_heading">
+                                            @top.ShortName
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center pt-4">
+                                            <div class="d-block align-items-center">
+                                                <h5 class="@("card_price " + (top.MarkedPrice > top.SalePrice ? "redPrice" : ""))">@Global.Currancy@top.SalePrice</h5>
+                                                @if (top.MarkedPrice > top.SalePrice)
+                                                {
+                                                    <p class="card_pre_price">@Global.Currancy@top.MarkedPrice</p>
+                                                }
+                                            </div>
+                                            <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/Ultrabooks.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Tablet</p>
-                                    <h5 class="cart_card_heading">
-                                        Tablet Thin EliteBook Revolve 810 G6
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/White-Tablet-S2-WiFi-62GB-LTE-Internet.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Tablet</p>
-                                    <h5 class="cart_card_heading">
-                                        White Tablet S2 WiFi 62GB LTE Internet
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/GoldPhone.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Smartphone</p>
-                                    <h5 class="cart_card_heading">
-                                        Smartphone 6S 64GB LTE
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1200</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -700,154 +429,53 @@
 
                 <div class="row py-3">
                     <div class="owl-carousel owl-theme ">
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/Laptop2.jpg" />
-                                    </div>
+                        @foreach (var top in Model.Products)
+                        {
+                            <div class="col-12 ecard py-3 my-2 px-2 position-relative">
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 3%;">PV : @(top.ProfitPoints)</span>
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@top.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@top.CatName</a>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Laptops</p>
-                                    <h5 class="cart_card_heading">
-                                        Laptop Screener CX70 2QF-621XPL 17.3″ 4210
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/macbook-pro.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Laptop</p>
-                                    <h5 class="cart_card_heading">
-                                        Apple MacBook Pro MF841HN/A 13-inch Laptop
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/Notebook-Widescreen-Y700-17-GF790.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Computer</p>
-                                    <h5 class="cart_card_heading">
-                                        Notebook Black Spire V Nitro VN7-591G
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/Laptop.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Laptops</p>
-                                    <h5 class="cart_card_heading">
-                                        Laptop WiFi CX61 2QF 15.6″ 4210M
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1200</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <img class="w-100" src="@("/images/Products/" + top.FkCustomerId + "/" + top.ImgUrl)" alt="" />
 
-            @*Video Cameras Category*@
-            <div id="cameras" class="BestSaller hide">
-                <p class="boxActive" hidden>Vedio Cameras</p>
-                <div class="row py-3">
-                    <div class="owl-carousel owl-theme ">
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://sansomic.tech/wp-content/uploads/2016/03/ActionCamera.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Cameras</p>
-                                    <h5 class="cart_card_heading">
-                                        Camera C430W 4k with Waterproof cover
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
                                         </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        @foreach (var c in Model.Categories)
+                                        {
+                                            @if (c.CategoryId == top.FkCategoryId)
+                                            {
+                                                <p class="card_text">@c.Name</p>
+                                            }
+                                        }
+                                        @*<p>Laptops</p>*@
+                                        <h5 class="cart_card_heading">
+                                            @top.ShortName
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center pt-4">
+                                            <div class="d-block align-items-center">
+                                                <h5 class="@("card_price " + (top.MarkedPrice > top.SalePrice ? "redPrice" : ""))">@Global.Currancy@top.SalePrice</h5>
+                                                @if (top.MarkedPrice > top.SalePrice)
+                                                {
+                                                    <p class="card_pre_price">@Global.Currancy@top.MarkedPrice</p>
+                                                }
+                                            </div>
+                                            <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 ecard py-3 my-2 px-2">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-                                    <div>
-                                        <img src="https://www.dubaipanda.com/wp-content/uploads/2016/03/hd-camera.jpg" />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p>Cameras</p>
-                                    <h5 class="cart_card_heading">
-                                        Camera C430W 4k Waterproof
-                                    </h5>
-                                    <div class="d-flex justify-content-between align-items-center pt-4">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="card_price"><span>$</span> 1999</h5>
-                                            @*<p class="card_pre_price"><span>$</span> 2999.09</p>*@
-                                        </div>
-                                        <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
 
                     </div>
                 </div>
             </div>
+
         </div>
-
-
     </section>
     @*All Category wise Items end*@
 
@@ -873,15 +501,15 @@
                     <p>Feedbacks</p>
                 </div>
             </div>
-            <div class="row px-2 py-2 my- helpCard" style="">
-                <div class="col-12 col-lg-4 helpcardImg">
-                    <i class="fa-solid fa-rotate" style="font-size: 3rem; color: var(--BColor);"></i>
-                </div>
-                <div class="col-12 col-lg-8 helpcardText">
-                    <h5>365 Days</h5>
-                    <p>for free return</p>
-                </div>
+            @* <div class="row px-2 py-2 my- helpCard" style="">
+            <div class="col-12 col-lg-4 helpcardImg">
+            <i class="fa-solid fa-rotate" style="font-size: 3rem; color: var(--BColor);"></i>
             </div>
+            <div class="col-12 col-lg-8 helpcardText">
+            <h5>365 Days</h5>
+            <p>for free return</p>
+            </div>
+            </div>*@
             <div class="row px-2 py-2 my- helpCard" style="">
                 <div class="col-12 col-lg-4 helpcardImg">
                     <i class="fa-regular fa-credit-card" style="font-size: 3rem; color: var(--BColor);"></i>
@@ -921,7 +549,138 @@
         </div>
     </section>
     @*SmartTv Banner End*@
+
+    @*Category Wise Product list STart*@
+    <section class="row pt-5 gap-3 justify-content-between">
+        <div class="col-12 col-sm-12">
+            <div class="row gap-2 justify-content-between" style="border-bottom: 1px solid var(--BorderColor)">
+                <h4 class="col-12 col-lg-3 heading_text ps-0">Laptops & Computers</h4>
+                <div class="col-12 row gap-2 justify-content-end align-items-center col-lg-9 text-end">
+                    <a class="roundBtn active">Top 20</a>
+                    <a class="roundBtn">Phones & Tablet</a>
+                    <a class="roundBtn">laptops & Computer</a>
+                </div>
+            </div>
+
+            @*Top 20 Items*@
+            <div id="top20" class="IndexcategoryItems">
+                <p class="boxActive" hidden>Top 20</p>
+                <div class="row py-3">
+                    <div class="owl-carousel owl-theme ">
+                        @foreach (var featured in Model.Products)
+                        {
+                            <div class="ecard p-2 col-12 position-relative" style="border-right: 1px solid #c1b1b1">
+
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%;">PV : @(featured.ProfitPoints)</span>
+
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
+                                </div>
+                                <h5 class="card_heading">@featured.ShortName</h5>
+                                <div>
+                                    <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
+                                        @if (featured.MarkedPrice > featured.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@featured.MarkedPrice</p>
+                                        }
+                                    </div>
+                                    <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            @*Phones and Tablet Category*@
+            <div id="Phones_Tablet" class="IndexcategoryItems hide">
+                <p class="boxActive" hidden>Phones & Tablet</p>
+                <div class="row py-3">
+                    <div class="owl-carousel owl-theme ">
+                        @foreach (var featured in Model.Products)
+                        {
+                            <div class="ecard p-2 col-12 position-relative" style="border-right: 1px solid #c1b1b1">
+
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%;">PV : @(featured.ProfitPoints)</span>
+
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
+                                </div>
+                                <h5 class="card_heading">@featured.ShortName</h5>
+                                <div>
+                                    <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
+                                        @if (featured.MarkedPrice > featured.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@featured.MarkedPrice</p>
+                                        }
+                                    </div>
+                                    <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @*Laptop and Computer Category*@
+            <div id="Laptop_Computer" class="IndexcategoryItems hide">
+                <p class="boxActive" hidden>laptops & Computer</p>
+
+                <div class="row py-3">
+                    <div class="owl-carousel owl-theme ">
+                        @foreach (var featured in Model.Products)
+                        {
+                            <div class="ecard p-2 col-12 position-relative" style="border-right: 1px solid #c1b1b1">
+
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%;">PV : @(featured.ProfitPoints)</span>
+
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
+                                </div>
+                                <h5 class="card_heading">@featured.ShortName</h5>
+                                <div>
+                                    <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
+                                        @if (featured.MarkedPrice > featured.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@featured.MarkedPrice</p>
+                                        }
+                                    </div>
+                                    <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+    @*Category Wise Product list End*@
+
+    <partial name="brands" />
+
 </div>
+<partial name="FooterSignUp" />
+
 @*<script src="~/js/swiper-bundle.min.js" />*@
 <script>
     let f = document.getElementById("Featured");
@@ -997,4 +756,99 @@
         })
     }
 
+    function preDeal(e) {
+        console.log(e.target)
+    }
+    function nextDeal() {
+        console.log("Next")
+    }
+
+    let d = 0;
+    //deals();
+    //function deals() {
+    //    var de = document.getElementsByClassName("deals");
+    //    for(let i = 0; i < de.length; i++) {
+    //        de[i].style.display = "none";
+    //    }
+    //    d++;
+    //    if(d > de.length){d = 1}
+    //    console.log(d)
+    //    //de[d].style.display = "block";
+    //    console.log(de[d-1].style.display = "flex")
+    //    setTimeout(deals, 8000)
+    //}
+
+    //Deals Time
+
+    let Maindeal = document.getElementsByClassName("deals");
+    let dealLength = Maindeal.length;
+
+
+
+
+    for (let i = 0; i < dealLength; i++) {
+
+        let sec = Maindeal[i].getElementsByClassName("sec")[0]
+        let min = Maindeal[i].getElementsByClassName("min")[0]
+        let hour = Maindeal[i].getElementsByClassName("hour")[0]
+        let day = Maindeal[i].getElementsByClassName("days")[0]
+
+        const timer = setInterval(() => {
+
+            sec.innerHTML = sec.innerHTML - 1
+            if (sec.innerHTML < 0) {
+                sec.innerHTML = 59;
+                min.innerHTML = min.innerHTML - 1;
+                if (min.innerHTML < 0) {
+                    min.innerHTML = 59;
+                    hour.innerHTML = hour.innerHTML - 1;
+                    if (hour.innerHTML < 0) {
+                        hour.innerHTML = 24;
+                        day.innerHTML = day.innerHTML - 1;
+                    }
+                }
+            }
+            if (day.innerHTML == 0 & hour.innerHTML == 0 && min.innerHTML == 0 && sec.innerHTML == 0) {
+
+                hourinnerHTML = 0;
+                mininnerHTML = 0;
+                secinnerHTML = 0;
+                console.log(hourinnerHTML)
+                console.log(secinnerHTML)
+                console.log(mininnerHTML)
+                clearInterval(timer);
+            }
+        }, 1000)
+
+        let bar = Maindeal[i].getElementsByClassName('dealBar1')[0]
+        let availabe = Maindeal[i].getElementsByClassName('dealAvailable')[0].innerHTML
+        let sold = Maindeal[i].getElementsByClassName('dealSold')[0].innerHTML
+        let availNum = Number(availabe);
+        let soldNum = Number(sold);
+        let totalQuantity = (availNum + soldNum);
+        let persentage = Number(soldNum / totalQuantity) * 100;
+        bar.style.width = persentage + "%";
+        console.log(totalQuantity);
+        console.log(persentage)
+
+    }
 </script>
+
+@*         //console.log(sec[0].innerHTML-1)
+        sec[0].innerHTML = (sec[0].innerHTML) - 1
+        if (sec[0].innerHTML < 0) {
+            sec[0].innerHTML = 59;
+            min[0].innerHTML = min[0].innerHTML - 1;
+            if (min[0].innerHTML < 0) {
+                min[0].innerHTML = 59;
+                hour[0].innerHTML = hour[0].innerHTML - 1;
+            }
+        }
+        if (hour[0].innerHTML == 0 && min[0].innerHTML == 0 && sec[0].innerHTML == 0) {
+            hour[0].innerHTML = 0;
+            min[0].innerHTML = 0;
+            sec[0].innerHTML = 0;
+            console.log(hour[0].innerHTML)
+            console.log(sec[0].innerHTML)
+            console.log(min[0].innerHTML)
+            clearInterval(timer);*@

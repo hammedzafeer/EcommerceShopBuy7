@@ -43,8 +43,9 @@ namespace ShopBuy7.Models
         [Display(Name = "Other Detail")]
         public string OtherDetail { get; set; } = string.Empty;
 
+        public bool IsFeatured { get; set; } = false;
         public bool IsActive { get; set; } = true;
-        public bool IsDeleted { get; set; } = true;
+        public bool IsDeleted { get; set; } = false;
 
         [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; } = Global.SetDateTime();
@@ -71,11 +72,14 @@ namespace ShopBuy7.Models
 
         [Display(Name = "Product box width")]
         public double Width { get; set; } = 0; //in inch
-
+        public double Tax { get; set; } = 0;
+        public string Tags { get; set; } = "";
         public string ImgUrl { get; set; } = "NotFound.png";
 
         [NotMapped]
-        public IFormFile? MyImage { get; set; }
+        public IFormFile MyImage { get; set; }
+        [NotMapped]
+        public string CatName { get; set; } = string.Empty;
 
     }
 

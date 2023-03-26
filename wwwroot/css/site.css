@@ -13,12 +13,14 @@
     --Stext: #363f44;
     --Htext: #000000b0;
     --cardHtext: #0062b7;
+    --darkBlue: #313b45;
     --rPrice: red;
     --BColor: #fed700;
     --BorderColor: #97a0a5b8;
     --GrayColor: #211d1da3;
     --white: #fff;
     --hWhite: #fdfdfd;
+    --backWhite: #f8f8f8;
     --Shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
@@ -35,6 +37,10 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--Htext);
 }
 
+.one-card.owl-carousel.owl-loaded {
+    display: block !important;
+}
+
 .hide {
     display: none;
 }
@@ -43,6 +49,42 @@ a {
     text-decoration: none !important;
     cursor: pointer;
     color: var(--Stext);
+}
+
+.abtnMain {
+    /*width: fit-content;*/
+}
+
+.aBtn {
+    position: relative;
+    /*transform: rotateX(-360deg);*/
+}
+
+.abtnMain:hover .aBtn {
+    color: var(--BColor);
+    transform: rotateX(360deg);
+}
+
+.LineBtn::after {
+    content: '';
+    display: flex;
+    width: 0%;
+    height: 3px;
+    width: 100%;
+    background: #dcca01;
+    transition: width .3s;
+    position: absolute;
+    left: 0;
+}
+
+.LineBtn:hover::after {
+    width: 100%;
+    color: #000;
+    font-weight: 600;
+    font-family: var(--Roboto);
+    border-bottom: 2px solid #dcca01;
+    transition: all 0.7s ease;
+    margin-top: 1px;
 }
 
 img {
@@ -101,18 +143,19 @@ img {
         transition: width .3s;
         position: absolute;
         left: 0;
+        bottom: -35%;
     }
 
-    .heading_text:hover::after,
+    /*.heading_text:hover::after,
     .heading_text_sm:hover::after {
         width: 0%;
         color: #000;
         font-weight: 600;
-        font-family: var(--Roboto);
+        font-family: var(--Roboto);*/
         /*border-bottom: 2px solid #dcca01;*/
-        transition: all 0.7s ease;
+        /*transition: all 0.7s ease;
         margin-top: 1px;
-    }
+    }*/
 /*.cateBtn {
     color: var(--Htext);
     font-weight: 400;
@@ -153,17 +196,17 @@ img {
     letter-spacing: 0.7px;
 }
 
-.Navfixed {
+/*.Navfixed {
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     z-index: 1030000;
     box-shadow: var(--Shadow);
-    transition: all 1s;
-    /*    background: #fff;
+    transition: all 1s;*/
+/*    background: #fff;
     padding: 1rem 5rem;*/
-}
+/*}*/
 
 header .nav {
     display: flex;
@@ -179,7 +222,7 @@ header .navbar .navbar-brand {
     font-family: var(--Mfont);
     letter-spacing: 0.7px;
     margin-right: 3rem;
-    color: #313b45
+    color: var(--darkBlue)
 }
 
 header .navbar-nav a {
@@ -370,14 +413,21 @@ header .nav_support div a {
     border: none;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--white-text);
-    background-color: var(--blue);
+    color: var(--white);
+    background-color: var(--BColor);
     text-align: center;
     -webkit-transition-duration: 0.4s;
     /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
 }
+
+    .btn:hover {
+        opacity: 0.7;
+        color: var(--white);
+        background: var(--BColor);
+        border: none;
+    }
 
     .btn:after {
         content: "";
@@ -397,6 +447,22 @@ header .nav_support div a {
         margin: 0;
         opacity: 1;
         transition: 0s
+    }
+.btn_768_show{
+    display: none;
+}
+.shopNowBtn {
+    font-weight: 600;
+    letter-spacing: 0.7px;
+}
+
+    .shopNowBtn span {
+        background: var(--BColor);
+        width: 25px;
+        display: inline-block;
+        height: 25px;
+        text-align: center;
+        border-radius: 50%;
     }
 
 .ecard {
@@ -523,6 +589,9 @@ header .nav_support div a {
 
 .deal_img {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #dealImg {
@@ -562,6 +631,7 @@ header .nav_support div a {
         transition: width .3s;
         position: absolute;
         left: 0;
+        bottom: 0;
     }
 
     .realted_deal_img:hover::after,
@@ -598,6 +668,15 @@ header .nav_support div a {
     border-radius: 2rem;
 }
 
+.deals {
+}
+.dealMprice {
+    text-align: end;
+}
+
+.dealSprice {
+    text-align: start;
+}
 .text {
     letter-spacing: 0.7px;
     color: var(--Stext);
@@ -636,7 +715,7 @@ header .nav_support div a {
 /*@*All Category wise Items start*@*/
 .latest .owl-nav {
     position: absolute !important;
-    top: -10%;
+    top: -14%;
     right: 0;
 }
 
@@ -656,30 +735,212 @@ header .nav_support div a {
         background: var(--hWhite);
         border-bottom: 2px solid var(--BorderColor);
     }
+
         .customHelp .helpCard h5 {
             font-weight: 600;
         }
+
         .customHelp .helpCard p {
             font-size: 1.2rem;
             font-weight: 200;
             font-family: var(--Mfont);
         }
+
 .banner_text {
     border-right: 1px solid var(--BorderColor);
 }
-    .banner_text::after{
+
+    .banner_text::after {
         content: "";
     }
 
+.mainDeals {
+    height: 500px;
+    /*    background: red;
+*/
+}
 
-    @media screen and (min-width: 768px) {
-        .two-card .col-md-4 {
+.one-card .owl-nav .owl-prev {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+}
+
+.one-card .owl-nav .owl-next {
+    position: absolute;
+    top: 3%;
+    right: 1%;
+}
+
+/*Footer*/
+footer {
+    background: var(--backWhite);
+}
+
+.footer1Col {
+}
+
+.footer-heading {
+    font-weight: 600;
+    font-family: var(--Mfont);
+    letter-spacing: 0.7px;
+    /* margin-right: 3rem; */
+    color: var(--darkBlue);
+    font-size: 1.3rem;
+}
+
+.footer1Col i {
+    font-size: 3rem;
+    color: var(--BColor);
+    padding-right: 1rem;
+}
+
+.footer1Col p {
+}
+
+.footer1Col a {
+    color: var(--Stext) !important;
+    font-weight: 500;
+    font-family: var(--Pfont);
+}
+
+.footer1Col .footerContact h6 {
+    color: var(--darkBlue);
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    font-size: 1.1rem;
+}
+
+.footer1Col .footerContact p {
+}
+
+.footer1Col .footerIcons i {
+    font-size: 1.8rem;
+    color: var(--GrayColor);
+    cursor: pointer;
+}
+
+    .footer1Col .footerIcons i:hover {
+        transform: scale(1.2);
+        color: var(--BColor)
+    }
+
+.footer2Col {
+}
+
+    .footer2Col .footer-heading {
+        font-size: 1rem;
+    }
+
+    .footer2Col ul {
+        margin: 0;
+        padding: 0.5rem 0;
+        list-style: none;
+    }
+
+        .footer2Col ul li {
+        }
+
+            .footer2Col ul li a {
+                /*width: 100px;*/
+                display: block;
+                padding: 7px 7px;
+            }
+
+                .footer2Col ul li a:hover {
+                    color: var(--BColor) !important;
+                }
+
+.footer3Col ul li a {
+    width: 100% !important;
+}
+
+.copyRight {
+}
+
+    .copyRight img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .copyRight i {
+    }
+/*Footer*/
+@media screen and (min-width: 768px) {
+    .two-card .col-md-4 {
         flex: 0 0 auto;
         width: 33%;
     }
+
+    .realted_deal_img {
+        min-height: 104px;
+        max-height: 104px;
+    }
+
+    .deal_img {
+        height: 295px;
+    }
+
+    #dealImg {
+        width: 100%;
+    }
+
+    .dealMprice {
+        text-align: center;
+    }
+
+    .dealSprice {
+        text-align: center;
+    }
+    .deals {
+        min-height: 485px;
+        max-height: 485px;
+    }
+    .btn_768_hide {
+        display: block;
+    }
 }
 
-@media screen and (min-width: 991px) {
+@media screen and (min-width: 992px) {
+
+    .Navfixed {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030000;
+        box-shadow: var(--Shadow);
+        transition: all 1s;
+        /*    background: #fff;
+    padding: 1rem 5rem;*/
+    }
+
+    .deal_img {
+        height: 295px;
+    }
+
+    .realted_deal_img {
+        min-height: 142px;
+        max-height: 142px;
+    }
+
+    #dealImg {
+        width: 60%;
+    }
+
+    .deals {
+        min-height: 467px;
+        max-height: 467px;
+    }
+
+    .dealMprice {
+        text-align: end;
+    }
+
+    .dealSprice {
+        text-align: start;
+    }
+
     .owl-carousel .owl-item img {
         height: 210px;
     }
@@ -718,37 +979,48 @@ header .nav_support div a {
 
     .latest .owl-nav {
         position: absolute;
-        top: -6% !important;
+        top: -15% !important;
         right: -15px !important;
     }
+
     .customHelp {
         width: 100%;
         display: flex;
         justify-content: space-between;
         flex: 0 0 100%;
         flex-wrap: wrap;
-    
     }
+
         .customHelp .helpCard {
             border-right: 1px solid var(--BorderColor);
             border-bottom: none;
             width: 20%;
             FLEX: 0 0 20%;
         }
-        .customHelp .helpCard:last-child {
-            border-right: none;
-            border-bottom: none;
-        }
-    .helpcardImg{
+
+            .customHelp .helpCard:last-child {
+                border-right: none;
+                border-bottom: none;
+            }
+
+    .helpcardImg {
         margin-bottom: 10px;
         text-align: center;
     }
+
     .helpcardText {
         text-align: center;
     }
 }
 
 @media screen and (max-width: 768px) {
+    .mainDeals {
+        height: 880px;
+    }
+    .deals {
+        min-height: 864px;
+        max-height: 864px;
+    }
     .search_category {
         margin-bottom: 1rem;
     }
@@ -756,10 +1028,24 @@ header .nav_support div a {
     .cart_card_heading {
         /*height: 70px;*/
     }
+
     .customHelp .helpCard {
         border-bottom: none;
         width: 49%;
         FLEX: 0 0 49%;
+    }
+    .one-card .owl-nav .owl-prev,
+    .one-card .owl-nav .owl-next {
+        display: none;
+    }
+    .realted_deal_img {
+        height: 126px;
+    }
+    .btn_768_show {
+        display: block;
+    }
+    .btn_768_hide {
+        display: none;
     }
 }
 
@@ -772,10 +1058,10 @@ header .nav_support div a {
         width: 100%;
         margin-top: 1rem;
     }
-
-        .searchbar input {
-            width: 80%;
-        }
+   
+    .searchbar input {
+        width: 80%;
+    }
 
         .searchbar select {
             right: 22%;
@@ -793,7 +1079,17 @@ header .nav_support div a {
 
     .latest .owl-nav {
         position: absolute;
-        top: -3% !important;
+        top: -10% !important;
         right: 0 !important;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .mainDeals {
+        height: 800px;
+    }
+    .deals{
+        min-height: 758px;
+        max-height: 758px;
     }
 }

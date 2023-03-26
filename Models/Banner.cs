@@ -19,20 +19,20 @@ namespace ShopBuy7.Models
 
         [DisplayName("Landing Link")]
         public string LandingLink { get; set; } = string.Empty ;
-        
+
         [DisplayName("Status")]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
         
         [DisplayName("Banner Type")]
-        public char BannerType { get; set; } = char.MinValue;
-        
+        public char BannerType { get; set; } = char.MinValue; // h for home page banner, p for product detial page banner, l home page left banner
+
         [DisplayName("Date Added")]
-        public DateTime DateAdded { get; set; }
+        public DateTime DateAdded { get; set; } = Global.SetDateTime();
 
         [NotMapped]
-        public IFormFile? WebImage { get; set; }
+        public IFormFile WebImage { get; set; }
 
         [NotMapped]
-        public IFormFile? MobileImage { get; set; }
+        public IFormFile MobileImage { get; set; }
     }
 }

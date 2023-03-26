@@ -10,39 +10,40 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        </div>
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="BannerId" />
+            <input type="hidden" asp-for="FkCustomerId" class="form-control" />
+            <input type="hidden" asp-for="DateAdded" class="form-control" />
+
             <div class="form-group">
-                <label asp-for="FkCustomerId" class="control-label"></label>
-                <input asp-for="FkCustomerId" class="form-control" />
-                <span asp-validation-for="FkCustomerId" class="text-danger"></span>
+                <label asp-for="WebImgUrl" class="control-label"></label>
+                <input asp-for="WebImage" accept="Image/*" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="MobileImgUrl" class="control-label"></label>
-                <input asp-for="MobileImgUrl" class="form-control" />
-                <span asp-validation-for="MobileImgUrl" class="text-danger"></span>
+                <input asp-for="MobileImage" accept="Image/*" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="WebImgUrl" class="control-label"></label>
-                <input asp-for="WebImgUrl" class="form-control" />
-                <span asp-validation-for="WebImgUrl" class="text-danger"></span>
+                <label asp-for="LandingLink" class="control-label"></label>
+                <input asp-for="LandingLink" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerType" class="control-label"></label>
+                <select asp-for="BannerType" class="form-control">
+                    <option value="h">Home Page Banner</option>
+                    <option value="p">Product Detail Banner</option>
+                    <option value="l">Home Page Left Banner</option>
+                </select>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="BannerType" class="control-label"></label>
-                <input asp-for="BannerType" class="form-control" />
-                <span asp-validation-for="BannerType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateAdded" class="control-label"></label>
-                <input asp-for="DateAdded" class="form-control" />
-                <span asp-validation-for="DateAdded" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

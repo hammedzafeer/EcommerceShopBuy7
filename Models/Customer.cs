@@ -10,11 +10,11 @@ namespace ShopBuy7.Models
         public int CustomerId { get; set; }
 
         [Display(Name = "FkCity id")]
-        public int FkCityId { get; set; }
+        public int FkCityId { get; set; } 
 
         [MaxLength(50)]
         [Display(Name = "First name")]
-        public string FName { get; set; } = string.Empty;
+        public string FName { get; set; } = string.Empty; 
 
         [MaxLength(50)]
         [Display(Name = "Last name")]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopBuy7.Data;
 using SixLabors.ImageSharp.Formats.Jpeg;
+using System.Net.Mail;
 
 namespace ShopBuy7.Models
 {
@@ -9,6 +10,9 @@ namespace ShopBuy7.Models
         
         public static string apiPath { get; set; } = "https://localhost:44342/api/";
         public static string ImagePath { get; set; } = "";
+        public static string Currancy { get; set; } = "Rs ";
+        public static List<Category> Categories { get; set; } = new();
+        public static List<SubCategory> SubCategories { get; set; } = new();
         public static DateTime SetDateTime()
         {
             return DateTime.Now;
@@ -71,6 +75,50 @@ namespace ShopBuy7.Models
                     return fileName;
                 }
             }
+        }
+
+
+        // Email verification
+        public static void EmailVerification(string to, string subject, string Innerbody)
+        {
+            string from = "taajpkofficial@gmail.com";
+            string Host = "smtp.gmail.com";
+            int Port = 587;
+
+            //string body = header + Innerbody + footer;
+            MailMessage message = new(from, to, subject, Innerbody)
+            {
+                IsBodyHtml = true
+            };
+            SmtpClient client = new(Host, Port);
+            client.Credentials = new System.Net.NetworkCredential()
+            {
+                UserName = "taajpkofficial@gmail.com",
+                Password = "pwgikvsyqqnpojtc"
+            };
+            client.EnableSsl = true;
+            client.Send(message);
+        }
+
+        public static void EmailNotification(string to, string subject, string Innerbody)
+        {
+            string from = "taajpkofficial@gmail.com";
+            string Host = "smtp.gmail.com";
+            int Port = 587;
+
+            //string body = header + Innerbody + footer;
+            MailMessage message = new(from, to, subject, Innerbody)
+            {
+                IsBodyHtml = true
+            };
+            SmtpClient client = new(Host, Port);
+            client.Credentials = new System.Net.NetworkCredential()
+            {
+                UserName = "taajpkofficial@gmail.com",
+                Password = "pwgikvsyqqnpojtc"
+            };
+            client.EnableSsl = true;
+            client.Send(message);
         }
 
     }

@@ -60,6 +60,7 @@ $('.IndexcategoryItems .owl-carousel').owlCarousel({
     nav: false,
     responsiveClass: true,
     paginationSpeed: true,
+    autoplayHoverPause: true,
     margin: 12,
     responsive: {
         0: {
@@ -81,6 +82,8 @@ $('.two-card .owl-carousel').owlCarousel({
     nav: false,
     responsiveClass: true,
     paginationSpeed: true,
+    autoplayHoverPause: true,
+
     margin: 12,
 
     responsive: {
@@ -95,6 +98,30 @@ $('.two-card .owl-carousel').owlCarousel({
         }
     }
 })
+$('.one-card.owl-carousel').owlCarousel({
+    loop: false,
+    autoplay: false,
+    dots: false,
+    nav: true,
+
+    responsiveClass: true,
+    paginationSpeed: true,
+    autoplayHoverPause: true,
+    navText: ["<i class='fa fa-chevron-left'></i> Previous Deal", "Next Deal <i class='fa fa-chevron-right'></i>"],
+    margin: 12,
+
+    responsive: {
+        0: {
+            items: 1
+        },
+        768: {
+            items: 1
+        },
+        991: {
+            items: 1
+        }
+    }
+})
 $('.realted_deal .owl-carousel').owlCarousel({
     loop: false,
     autoplay: false,
@@ -102,6 +129,8 @@ $('.realted_deal .owl-carousel').owlCarousel({
     nav: true,
     responsiveClass: true,
     paginationSpeed: true,
+    autoplayHoverPause: true,
+
     margin: 7,
 
     responsive: {
@@ -128,6 +157,8 @@ $('.BestSaller .owl-carousel').owlCarousel({
     nav: false,
     responsiveClass: true,
     paginationSpeed: true,
+    autoplayHoverPause: true,
+
     margin: 1,
     responsive: {
         0: {
@@ -148,10 +179,70 @@ $('.latest .owl-carousel').owlCarousel({
     nav: true,
     responsiveClass: true,
     paginationSpeed: true,
+    autoplayHoverPause: true,
+
     margin: 7,
     responsive: {
         0: {
             items: 1
+        },
+        768: {
+            items: 2
+        },
+        991: {
+            items: 1
+        }
+    }
+})
+
+
+$('.oneShow .owl-carousel').owlCarousel({
+    loop: true,
+    autoplay: true,
+    dots: true,
+    nav: false,
+    responsiveClass: true,
+    paginationSpeed: true,
+    autoplayHoverPause: true,
+
+    margin: 1,
+    responsive: {
+        0: {
+            items: 1
+        },
+        768: {
+            items: 1
+        },
+        991: {
+            items: 2
+        }
+    }
+})
+
+$('.brands .owl-carousel').owlCarousel({
+    loop: true,
+    autoplay: true,
+    dots: false,
+    nav: false,
+    responsiveClass: true,
+    paginationSpeed: true,
+    autoplayHoverPause: true,
+    autoplayTimeout: 1000,
+
+    margin: 7,
+
+    responsive: {
+        0: {
+            items: 2
+        },
+        480: {
+            items: 3
+        },
+        768: {
+            items: 5
+        },
+        991: {
+            items: 7
         }
     }
 })

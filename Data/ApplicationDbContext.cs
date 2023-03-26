@@ -32,5 +32,8 @@ namespace ShopBuy7.Data
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<TransactionHistory> Transactions { get; set; }
         public DbSet<AuthenticationLog> UserLogs { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<Deal> Deals { get; set; }
     }
 }

@@ -21,14 +21,14 @@ namespace ShopBuy7.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-              return View(await context.Products.Where(x => !x.IsDeleted).ToListAsync());
+            return View(await context.Products.Where(x => !x.IsDeleted).ToListAsync());
         }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             var product = await context.Products.FindAsync(id);
-            if(product != null)
+            if (product != null)
             {
                 return View(product);
             }
@@ -41,14 +41,22 @@ namespace ShopBuy7.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            return View();
+            ViewBag.categories = context.Categories.Where(x => !x.IsDeleted).ToList();
+            ViewBag.subcategories = context.SubCategories.Where(x => !x.IsDeleted).ToList();
+            ViewBag.brands = context.Brands.Where(x => !x.IsDeleted).ToList();
+            var product = new Product()
+            {
+                //FkCustomerId = int.Parse(HttpContext.Session.GetString("userid")),
+                FkCustomerId = 1,
+            };
+            return View(product);
         }
 
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create(Product product, List<IFormFile> files)
+        public async Task<IActionResult> Create(Product product, List<IFormFile> GallaryImages, string Specialities)
         {
             product.IsActive = true;
             product.IsDeleted = false;
@@ -57,11 +65,29 @@ namespace ShopBuy7.Controllers
             context.Products.Add(product);
             await context.SaveChangesAsync();
 
-            if(product.MyImage != null)
-                product.ImgUrl = UploadMainImg(product.MyImage,product.ImgUrl, product.FkCustomerId, product.ProductId);
-            if(files != null && files.Count > 0)
+            //Adding Specialities 
+            if (Specialities != null)
             {
-                foreach(var file in files)
+                var spcList = Specialities.Split(',').ToList();
+                foreach (var s in spcList)
+                {
+                    var spc = new Speciality();
+                    spc.FkProductId = product.ProductId;
+                    spc.Name = s;
+                    context.Specialities.Add(spc);
+                    context.SaveChanges();
+                }
+            }
+
+            // Primary image
+            if (product.MyImage != null)
+                product.ImgUrl = UploadMainImg(product.MyImage, product.ImgUrl, product.FkCustomerId, product.ProductId);
+            context.Products.Update(product);
+            await context.SaveChangesAsync();
+            // Secondry Image
+            if (GallaryImages != null && GallaryImages.Count > 0)
+            {
+                foreach (var file in GallaryImages)
                 {
                     UploadGallaryImg(file, product.FkCustomerId, product.ProductId);
                 }
@@ -132,14 +158,36 @@ namespace ShopBuy7.Controllers
                 product.IsDeleted = !product.IsDeleted;
                 context.Products.Update(product);
             }
-            
+
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        
+        public async Task<IActionResult> IsActive(int id)
+        {
+            if (context.Products == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
+            }
+            var product = await context.Products.FindAsync(id);
+            if (product != null)
+            {
+                product.IsActive = !product.IsActive;
+                context.Products.Update(product);
+            }
+
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        /*public IActionResult DeleteGallaryImage(int id)
+        {
+            re
+        }*/
+
         private bool ProductExists(int id)
         {
-          return context.Products.Any(e => e.ProductId == id);
+            return context.Products.Any(e => e.ProductId == id);
         }
 
         [HttpPost]
@@ -160,12 +208,13 @@ namespace ShopBuy7.Controllers
                 {
                     System.IO.File.Delete(imagePath);
                 }
+
             }
 
             //string FileName = Path.GetFileNameWithoutExtension(file.FileName);
             string FileExtension = Path.GetExtension(file.FileName);
-            string fileName = pid+"-p-" + DateTime.Now.ToString("yymmssfff") + FileExtension;
-            string path = Path.Combine(ImgFolder+ "/", fileName);
+            string fileName = pid + "-p-" + DateTime.Now.ToString("yymmssfff") + FileExtension;
+            string path = Path.Combine(ImgFolder + "/", fileName);
 
             //var filePath = Path.Combine("D:\\Office Projects\\Git Projects\\RestaurantStaff\\RestaurantStaff\\HomeHealthCare\\wwwroot\\images\\banners", file.FileName);
             using (var imageStream = new MemoryStream())
@@ -200,8 +249,8 @@ namespace ShopBuy7.Controllers
             }
             //string FileName = Path.GetFileNameWithoutExtension(file.FileName);
             string FileExtension = Path.GetExtension(file.FileName);
-            string fileName = pid+"-s-" + DateTime.Now.ToString("yymmssfff") + FileExtension;
-            string path = Path.Combine(ImgFolder+ "/", fileName);
+            string fileName = pid + "-s-" + DateTime.Now.ToString("yymmssfff") + FileExtension;
+            string path = Path.Combine(ImgFolder + "/", fileName);
 
             //var filePath = Path.Combine("D:\\Office Projects\\Git Projects\\RestaurantStaff\\RestaurantStaff\\HomeHealthCare\\wwwroot\\images\\banners", file.FileName);
             using (var imageStream = new MemoryStream())

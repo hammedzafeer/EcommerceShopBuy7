@@ -7,6 +7,8 @@ using ShopBuy7.Models;
 using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
+using System;
 
 namespace ShopBuy7.Controllers
 {
@@ -21,12 +23,61 @@ namespace ShopBuy7.Controllers
         public IActionResult Index()
         {
             HomeModel model = new();
-            model.Products = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(100).ToList();
+            model.Products = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(10).ToList();
+            model.Products = getCatName(model.Products);
+            model.Featured = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted && x.IsFeatured).Take(10).ToList();
+            model.Featured = getCatName(model.Featured);
+            model.OnSale = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted && x.SalePrice < x.MarkedPrice).Take(10).ToList();
+            model.OnSale = getCatName(model.OnSale);
+            model.TopRated = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(10).ToList();
+            model.TopRated = getCatName(model.TopRated);
             model.Banners = context.Banners.OrderByDescending(x => x.BannerId).Where(x => x.IsActive).ToList();
-            model.Categories = context.Categories.OrderBy(x => x.Name).ToList();
+            Global.Categories = model.Categories = context.Categories.OrderBy(x => x.Name).Where(x => !x.IsDeleted).ToList();
+            Global.SubCategories = model.SubCategories = context.SubCategories.OrderBy(x => x.Name).Where(x => !x.IsDeleted).ToList();
+            model.Deals = context.Deals.OrderByDescending(x => x.DealId).Where(x => x.ExpiryDateTime > Global.SetDateTime()).ToList();
+            foreach(var d in model.Deals)
+            {
+                var product = context.Products.Find(d.FkProductId);
+                d.Images = context.Images.Where(x => x.FkProductId == d.FkProductId).ToList();
+                if (product != null)
+                    d.Product = product;
+                d.RemainingTime = d.ExpiryDateTime - Global.SetDateTime();
+                var orderDetails = (from orderDetail in context.OrderDetails
+                                   join order in context.Orders
+                                   on orderDetail.FkOrderId equals order.OrderId
+                                   into od
+                                   from allOrders in od.DefaultIfEmpty()
+                                   where
+                                   orderDetail.FkProductId == d.FkProductId
+                                   && allOrders.DateAdded >= d.DateAdded
+                                   select orderDetail).ToList();
+                d.Sold = orderDetails.Sum(x => x.Quantity);                
+            }
             return View(model);
         }
 
+        public List<Product> getCatName(List<Product> products)
+        {
+            var subcats = context.SubCategories.Where(x => !x.IsDeleted).ToList();
+            foreach(var p in products)
+            {
+                var cat = subcats.FirstOrDefault(x => x.SubCategoryId == p.FkSubCategoryId); 
+                if(cat != null)
+                {
+                    p.CatName = cat.Name;
+                }
+                else
+                {
+                    p.CatName = "Unkown";
+                }
+            }
+            return products;
+        }
+
+        public IActionResult my_account()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> LogIn(string username, string password)
@@ -44,7 +95,6 @@ namespace ShopBuy7.Controllers
                         {
                             var claims = new List<Claim>
                             {
-                                new Claim("userid", customer.CustomerId.ToString()),
                                 new Claim("name", customer.FName + " " + customer.LName),
                                 new Claim("usertype", "Customer"),
                                 new Claim(ClaimTypes.NameIdentifier, username.ToLower()),
@@ -60,6 +110,8 @@ namespace ShopBuy7.Controllers
 
                             context.UserLogs.Add(userLog);
                             await context.SaveChangesAsync();
+                            HttpContext.Session.SetString("name", customer.FName + " " + customer.LName);
+                            HttpContext.Session.SetString("userid", customer.CustomerId.ToString());
                             return RedirectToAction("UserDashboard", "Home");
                         }
                         ViewBag.Error = "You are not an Active User, Please Contact with Administration";
@@ -94,6 +146,8 @@ namespace ShopBuy7.Controllers
 
                             context.UserLogs.Add(userLog);
                             await context.SaveChangesAsync();
+                            HttpContext.Session.SetString("name", employee.Name);
+                            HttpContext.Session.SetString("userid", employee.EmpId.ToString());
                             return RedirectToAction("UserDashboard", "Home");
                         }
                         ViewBag.Error = "You are not an Active User, Please Contact with Administration";
@@ -155,6 +209,33 @@ namespace ShopBuy7.Controllers
             return Redirect("/");
         }
 
+        [HttpPost]
+        public JsonResult SearchProduct(string prefix)
+        {
+            var searchs = (from search in context.Products
+                           where search.Name.Contains(prefix)
+                           select new
+                           {
+                               label = search.Name,
+                           }).Take(7).ToList();
+
+            return Json(searchs);
+        }
+
+        [HttpPost]
+        public JsonResult EmailVerfication(string email)
+        {
+            int random = new Random().Next(1000, 9999);
+            try
+            {
+                Global.EmailVerification(email, "Verification Code", random.ToString());
+            }
+            catch
+            {
+
+            }
+            return Json(random);
+        }
 
         public IActionResult Privacy()
         {

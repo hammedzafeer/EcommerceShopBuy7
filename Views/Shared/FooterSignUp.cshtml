@@ -1,0 +1,80 @@
+﻿<style>
+    .footerSignUp {
+        background: var(--BColor);
+    }
+
+        .footerSignUp p {
+            padding: 0;
+            margin: 0;
+        }
+
+    .inputBtn {
+        text-align: end;
+    }
+
+        .inputBtn input {
+            width: 70%;
+            padding: 8px 1.5rem;
+            border-radius: 2rem;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            font-size: 1.05rem;
+            letter-spacing: 0.8px;
+            border: none;
+        }
+
+        .inputBtn button {
+            border: none;
+            padding: 9px 20px;
+            margin-left: -4px;
+            font-weight: 600;
+            font-family: var(--Roboto);
+            border-top-right-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            background: var(--Stext);
+            color: #fff;
+        }
+
+    @@media screen and (max-width: 991px) {
+        .inputBtn {
+            margin-top: 1rem;
+        }
+        .inputBtn{
+            text-align: center;
+        }
+            .inputBtn input {
+                width: 50%;
+            }
+    }
+    @@media screen and (max-width: 575px) {
+        
+            .inputBtn input {
+                width: 60%;
+            }
+    }
+</style>
+
+<div class="footerSignUp my-3">
+    <div class="container">
+        <div class="row py-3" style="justify-content: space-between;align-items: center;">
+            <div class="col-12 col-lg-7">
+                <div class="row">
+                    <div class="col-12 col-lg-5 col-sm-6" style="display: flex; justify-content: flex-start;align-items: center">
+                        <i class="fa-solid fa-right-to-bracket px-2" style="font-size: 1.5rem;"></i>
+                        <p class="px-2">Sign up to Newsletter</p>
+                    </div>
+                    <div class="col-12 col-lg-7 col-sm-6">
+                        <p>...and recive <strong>@(Global.Currancy)20 coupon for first shopping</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 inputBtn col-lg-5" style="">
+                <div>
+                    <input type="email" placeholder="Enter your email address" />
+                    <button>Sign Up</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

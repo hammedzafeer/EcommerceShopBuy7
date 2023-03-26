@@ -44,7 +44,8 @@ namespace ShopBuy7.Controllers
         // GET: Banners/Create
         public IActionResult Create()
         {
-            return View();
+            var banner = new Banner();
+            return View(banner);
         }
 
         // POST: Banners/Create
@@ -53,6 +54,8 @@ namespace ShopBuy7.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Banner banner)
         {
+            //banner.FkCustomerId = int.Parse(HttpContext.Session.GetString("userid")),
+            
             context.Add(banner);
             await context.SaveChangesAsync();
             if (banner.MobileImage != null)
@@ -63,6 +66,8 @@ namespace ShopBuy7.Controllers
             {
                 banner.WebImgUrl = Global.UploadMainImg(_host, banner.WebImage, banner.WebImgUrl, banner.BannerId, 'b');
             }
+            context.Update(banner);
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

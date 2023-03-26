@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "Account";
+}
+<style>
+    .main-container {
+    }
+
+
+    .mainDeals-context {
+    }
+
+        .mainDeals-context::before {
+            content: "";
+            border-right: 1px solid var(--BorderColor);
+            position: absolute;
+            left: 50%;
+            top: 0;
+            height: 100%;
+            /*transform: translate(50%);*/
+        }
+
+    .or-text {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: #fff;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+        right: 50%;
+        top: 50%;
+        z-index: 1;
+        font-style: italic;
+        font-family: var(--Mfont);
+        font-weight: 500;
+        border: 1px solid var(--BorderColor);
+        transform: translate(50%);
+    }
+
+    .signIn {
+    }
+
+    .heading-container {
+    }
+
+    .account-heading {
+        font-family: var(--Mfont);
+        font-weight: 500;
+        letter-spacing: 0.7px;
+        /*border-bottom: 1px solid var(--BColor);*/
+        /* display: inline; */
+        padding: 1rem 0;
+    }
+
+        .account-heading::before {
+            content: "";
+            position: absolute;
+            top: 91%;
+            left: 0;
+            width: 100px;
+            border-bottom: 2px solid var(--BColor);
+            z-index: 2;
+        }
+
+        .account-heading::after {
+            content: "";
+            border-bottom: 1px solid var(--BorderColor);
+            display: block;
+            position: absolute;
+            top: 92%;
+            left: 0;
+            width: 100%;
+        }
+
+    .heading-text {
+        font-family: var(--Ofont);
+        font-weight: 400;
+    }
+
+    .account-form {
+        margin-top: 2rem;
+    }
+
+    .form-input {
+        margin: 1rem auto;
+        gap: 0.5rem !important;
+    }
+
+        .form-input label {
+            font-family: var(--Roboto);
+            font-weight: 500;
+        }
+
+        .form-input input {
+            padding: 10px 15px;
+            border-radius: 2rem;
+            border: 1px solid var(--BorderColor);
+            letter-spacing: 0.7px;
+            outline: none;
+        }
+
+    .btn {
+        margin: 1rem 0;
+        border-radius: 2rem;
+    }
+</style>
+
+<section class="container main-container position-relative mt-4 mb-4">
+    <span class="or-text">or</span>
+    <div class="d-flex mainDeals-context my-3 flex-wrap">
+        <div class="col-12 col-lg-6">
+            <div class="signIn px-5">
+                <div class="heading-container">
+                    <h5 class="account-heading position-relative">Sign In</h5>
+                </div>
+                <p class="heading-text">Welcome back! Sign in to Your Account</p>
+
+                <form class="account-form">
+                    <div class="form-input row">
+                        <label class="col-12">Username or Email Address</label>
+                        <input class="col-12" type="email" placeholder="User Name or Email Address*" />
+                    </div>
+                    <div class="form-input row">
+                        <label class="col-12">Password</label>
+                        <input class="col-12" type="password" placeholder="Password*" />
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="rem" type="checkbox" />
+                            <label for="rem" style="font-family: var(--Mfont);
+">Remember Me</label>
+                        </div>
+                        <a class="col-6 text-end">Forgotten Password?</a>
+                    </div>
+
+                    <button class="btn" type="button">Login</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="signIn px-5">
+                <div class="heading-container">
+                    <h5 class="account-heading position-relative">Create New Account</h5>
+                </div>
+                <p class="heading-text">Create Your very own Shopbuy7 Account</p>
+
+                <form class="account-form">
+                    <div class="form-input row">
+                        <label class="col-12">Email Address</label>
+                        <input class="col-12" type="email" placeholder="User Name or Email Address*" />
+                    </div>
+
+                    <button class="btn" type="button">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
