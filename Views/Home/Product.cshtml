@@ -1,0 +1,915 @@
+﻿@model ShopBuy7.Models.HomeModel
+
+@{
+    ViewData["Title"] = "ProductDetails";
+}
+
+<style>
+    .PcategorySelect {
+        background: #f5f5f5;
+        border: 1px solid var(--BorderColor);
+        outline: none;
+    }
+
+    .Product_category {
+        transition: all 2s ease-in-out;
+    }
+
+    .sub_categort_dropdown {
+        height: 0;
+        display: none;
+        overflow: hidden;
+        transition: all 2s ease-in-out;
+    }
+
+    .btn_categort_dropdown.Act {
+        display: block;
+        height: auto;
+    }
+
+
+    .img-zoom-container {
+        position: relative;
+    }
+
+    .img-zoom-lens {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        /*set the size of the lens:*/
+        width: 40px;
+        height: 40px;
+    }
+
+    .img-zoom-result {
+        border: 1px solid #d4d4d4;
+        /*set the size of the result div:*/
+        width: 300px;
+        height: 300px;
+    }
+    /*Products*/
+    .product_subCatgory {
+        font-size: 0.9rem;
+    }
+
+    .product_name {
+        font-family: var(--Ofont);
+        letter-spacing: 0.7px;
+        /* line-height: 2rem; */
+    }
+
+    .product_logo {
+        width: 80px;
+        height: auto;
+    }
+
+        .product_logo img {
+            width: 100%;
+            height: 100%;
+        }
+
+    .product_get_reviews {
+    }
+
+        .product_get_reviews i {
+            font-size: 1.2rem;
+        }
+
+        .product_get_reviews p {
+            font-family: var(--Mfont);
+            letter-spacing: 0.6px;
+        }
+
+    .product_share {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .product_top_link {
+        padding: 6px 7px;
+        border-radius: 5px;
+    }
+
+        .product_top_link:hover {
+            background: #c9c4c4 !important;
+        }
+
+    .product_top_arrow {
+        font-weight: 600;
+        padding: 0 2px;
+    }
+
+
+    .exzoom .exzoom_img_box {
+        background: #fff !important;
+    }
+
+    .tool-tip {
+        display: inline-block;
+        position: relative;
+        margin-right: 1rem;
+        padding: 2px 7px;
+        border-radius: 3px;
+        background: #1e3050;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+        .tool-tip i {
+            font-size: 1.3rem;
+            margin-right: 7px;
+            color: #fff;
+        }
+
+        .tool-tip p {
+            margin: 0;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .tool-tip .tooltip-text {
+            position: absolute;
+            background: black;
+            width: 120px;
+            color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            border-radius: 6px;
+            z-index: 1;
+            top: -5px;
+            left: 110%;
+            visibility: hidden;
+        }
+
+            .tool-tip .tooltip-text::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: 100%;
+                margin-top: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent black transparent transparent;
+            }
+
+        .tool-tip:hover .tooltip-text {
+            visibility: visible;
+        }
+
+    .exzoom .exzoom_nav .exzoom_nav_inner span img {
+        top: 0 !important;
+        padding: 2px;
+    }
+
+    .product_details_spacility {
+    }
+
+        .product_details_spacility li {
+            color: var(--Stext);
+            letter-spacing: 0.7px;
+            font-family: var(--Ofont);
+            font-weight: 400;
+        }
+
+    .product_code {
+    }
+
+        .product_code span {
+        }
+
+    .product_avail {
+        border-bottom: 1px solid var(--BorderColor);
+        padding-bottom: 0.2rem;
+        letter-spacing: 0.6px;
+    }
+
+        .product_avail strong {
+            color: green;
+        }
+
+    .cart_box {
+        border: 2px solid var(--BorderColor);
+        border-radius: 1rem;
+    }
+
+    .product_price_cotainer {
+    }
+
+    .product_pre_price {
+        margin: 0;
+        font-size: 1.2rem;
+        font-family: var(--Mfont);
+        text-decoration-style: dotted;
+        text-decoration: underline;
+        text-decoration-line: line-through;
+        color: var(--Stext);
+    }
+
+    .product_sale_price {
+        font-size: 2rem;
+        font-family: var(--Ofont);
+        color: var(--Htext);
+        letter-spacing: 1px;
+    }
+
+    .product_cart_form {
+    }
+
+        .product_cart_form label {
+        }
+
+    .cart_input {
+        width: 100%;
+        position: relative;
+    }
+
+    .product_cart_form input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 2rem;
+        color: var(--Htext);
+        font-family: var(--Mfont);
+        font-weight: 600;
+        letter-spacing: 0.7px;
+    }
+
+    .cart_input span {
+        width: 30px;
+        height: 30px;
+        background: #efefef;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-weight: 500;
+        font-size: 1.5rem;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .cart_plus {
+        right: 23%;
+        top: 20%;
+    }
+
+    .cart_min {
+        right: 5%;
+        top: 20%;
+    }
+
+    .product_cart_btn {
+        width: 100%;
+        padding: 15px;
+        border-radius: 2rem;
+        text-transform: capitalize;
+        /* font-family: var(--Mfont); */
+        font-weight: 600;
+    }
+
+        .product_cart_btn i {
+        }
+
+    .product_buy_btn {
+        width: 100%;
+        padding: 15px;
+        border-radius: 2rem;
+        text-transform: capitalize;
+        /* font-family: var(--Mfont); */
+        font-weight: 600;
+        background: #343e48
+    }
+
+    /*Product details*/
+    .product_details_nav {
+        border-bottom: 2px solid var(--BorderColor);
+        padding: 5px 0;
+        text-align: center;
+    }
+
+        .product_details_nav .p_d_nav_link {
+            /* background: red; */
+            padding: 10px 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .product_details_nav .p_d_nav_link.active {
+                font-weight: 700;
+            }
+
+                .product_details_nav .p_d_nav_link.active::before {
+                    content: "";
+                    display: inline-block;
+                    width: 100%;
+                    height: 3px;
+                    background: var(--BColor);
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0;
+                }
+
+                .product_details_nav .p_d_nav_link.active::after {
+                    content: "";
+                    width: 10px;
+                    display: inline-block;
+                    background: var(--BColor);
+                    height: 10px;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 85%;
+                    left: 50%;
+                }
+
+    .product_detail_title {
+        letter-spacing: 0.7px;
+        font-size: 1.5rem;
+        padding: 0.5rem 0;
+    }
+
+    .product_description {
+        font-family: var(--Mfont);
+        -webkit-user-modify: read-write-plaintext-only;
+        letter-spacing: 0.7px;
+        word-spacing: 0.7px;
+    }
+    /*spacification*/
+    .spacification {
+        border-bottom: 1px solid var(--BorderColor);
+    }
+
+        .spacification:last-child {
+            border-bottom: none;
+        }
+
+        .spacification h5 {
+            font-size: 1.02rem;
+            font-family: var(--Mfont);
+            letter-spacing: 0.6px;
+        }
+
+        .spacification p {
+            margin: 0;
+            letter-spacing: 0.7px;
+        }
+
+    .over_count {
+        font-size: 2.2rem;
+        font-family: var(--Roboto);
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+
+    .review_heading {
+        font-size: 1.3rem;
+        font-family: var(--Ofont);
+        letter-spacing: 0.6px;
+    }
+
+    .dealBar1 {
+        background: var(--BorderColor);
+    }
+
+    .review_form_container {
+    }
+
+    .review_form {
+        /*background: red;*/
+        display: flex;
+        justify-content: flex-start;
+        align-items: start;
+    }
+
+        .review_form label {
+            /*background: yellow;*/
+            /*width: 100px;*/
+            text-align: end;
+            margin-right: 2rem;
+            padding: 10px 0;
+            font-weight: 500;
+        }
+
+        .review_form input {
+            /*width: 60%;*/
+            padding: 10px 12px;
+            border-radius: 2rem;
+            border: 1px solid var(--BorderColor);
+        }
+
+        .review_form i {
+            font-size: 1.1rem;
+        }
+
+        .review_form textarea {
+            padding: 10px 12px;
+            border-radius: 0.5rem;
+            /*width: 60%;*/
+            height: 90px;
+        }
+
+        .review_form .btn {
+            padding: 12px;
+            text-transform: capitalize;
+        }
+
+    .reviews {
+        border-bottom: 1px solid var(--BorderColor);
+    }
+
+        .reviews:last-child {
+            border-bottom: none;
+        }
+
+    .reviews_names {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+        .reviews_names h5 {
+        }
+
+        .reviews_names p {
+            font-family: var(--Ofont);
+        }
+
+            .reviews_names p span {
+                font-family: var(--Mfont);
+                padding-right: 0.5rem;
+            }
+
+    .review_more {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+        .review_more .btn {
+            padding: 12px;
+            text-transform: none;
+            font-weight: 500;
+        }
+</style>
+<link rel="stylesheet" href="~/Magnifying/jquery.exzoom.css" />
+
+<section class="py-3">
+    <div class="container">
+        @*Product Top Links*@
+        <div class="my-3">
+            <span class="product_top_link"><a asp-action="Index">Home</a></span>
+            <span class="product_top_arrow"> > </span>
+            <span class="product_top_link" style="background: #eee;"><a asp-action="#">Smartphones & Tablets</a></span>
+            <span class="product_top_arrow"> > </span>
+            <span class="product_top_link" style="background: #eee;"><a asp-action="#">Smartphones</a></span>
+            <span class="product_top_arrow"> > </span>
+            <span class="product_top_link"><a asp-action="#">Wireless Audio System Multiroom 360</a></span>
+        </div>
+
+        @*Product Details image*@
+        <div>
+            <div class="container">
+                <div class="row">
+                    @*Product Images *@
+                    <div class="col-12 col-lg-5" style="">
+                        <div class="exzoom" id="exzoom">
+                            @*<!-- Images -->*@
+                            <div class="exzoom_img_box">
+                                <ul class='exzoom_img_ul'>
+                                    <li><img src="~/images/Products/1/1-p-230950789.png" /></li>
+                                    <li><img src="~/images/Products/1/1-p-235357013.jpg" /></li>
+                                    <li><img src="~/images/Products/1/10-p-233447750.jpg" /></li>
+                                    <li><img src="~/images/Products/1/10-s-233448203.jpg" /></li>
+                                    <li><img src="~/images/Products/1/11-s-235149508.jpeg" /></li>
+                                </ul>
+                            </div>
+                            @*<!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> Nav-->
+                            *@
+                            <div class="exzoom_nav"></div>
+                            @*<!-- Nav Buttons -->*@
+                            <p class="exzoom_btn">
+                                <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
+                                <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+                            </p>
+                        </div>
+
+                    </div>
+                    @*Product short Details*@
+                    <div class="col-12 col-sm-6 col-lg-4 py-3 px-2" style="">
+                        <div>
+                            <a class="product_subCatgory">Smartphones</a>
+                            <h4 class="product_name py-2">Wireless Audio System Multiroom 360</h4>
+                            <div class="product_logo py-2">
+                                <a asp-action="#"><img src="https://directlinedev.com/media/page_photos/0002/photo_2431.normal.png" /></a>
+                            </div>
+                            <div class="product_get_reviews d-flex justify-content-start-0 align-items-center py-2">
+                                <div class="me-3">
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                </div>
+                                <p class="m-0">Reviews (3)</p>
+                            </div>
+                            <div class="product_share pt-2 pb-3">
+                                <div class="tool-tip">
+                                    <i class="fa-brands fa-square-facebook"></i>
+                                    <p>Share</p>
+                                    <span class="tooltip-text">Tooltip text</span>
+
+                                </div>
+                                <div class="tool-tip" style="background: #e8e4e4cc; color: #000; border: 1px solid var(--BorderColor);">
+                                    <i class="fa-brands fa-twitter" style="color: #1e3050;"></i>
+                                    <p style="color: #000;">Tweet</p>
+                                    <span class="tooltip-text">Tooltip text</span>
+                                </div>
+                            </div>
+                            <ul class="product_details_spacility py-4">
+                                <li>4.5 inch HD</li>
+                                <li>4.5 inch HD</li>
+                                <li>4.5 inch HD</li>
+                                <li>4.5 inch HD</li>
+                            </ul>
+
+                            <div class="product_code">
+                                <strong>SKU : </strong>
+                                <span>FWS111JHSJ1</span>
+                            </div>
+                        </div>
+                    </div>
+                    @*Product cart section*@
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="cart_box px-4 py-3 mt-3">
+                            <p class="product_avail">Availability: <strong>In stock</strong></p>
+                            <div class="product_price_cotainer">
+                                <p class="product_pre_price">$ 1200</p>
+                                <p class="product_sale_price">$ 1100</p>
+                            </div>
+                            <form class="product_cart_form">
+                                <label>Quanity:</label>
+                                <div class="cart_input my-2">
+                                    <input type="number" min="1" value="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                    <span class="cart_plus">+</span>
+                                    <span class="cart_min">-</span>
+                                </div>
+                                <button class="my-2 btn product_cart_btn"><i class="fa-solid fa-cart-shopping" style="color: #fbfcfe;"></i> Add to Cart</button>
+                                <button class="my-2 btn product_buy_btn">Buy Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*Product all Details section*@
+<section class="py-4" style="background: #f9f9f9;">
+    <div class="container py-5 px-3" style="background: #fff;">
+        <div class="product_details_nav">
+            <a id="descriptionBtn" class="p_d_nav_link active">Description</a>
+            <a id="specificationBtn" class="p_d_nav_link">Specification</a>
+            <a id="reviewsBtn" class="p_d_nav_link">Reviews</a>
+        </div>
+        <div>
+            @*details*@
+            <div id="description" class="py-4 px-3">
+                <div class="pb-2">
+                    <h3 class="product_detail_title">Details</h3>
+                    <p class="product_description" style="font-style: italic;"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
+                </div>
+                <div class="pb-3">
+                    <h3 class="product_detail_title">Other Detais</h3>
+                    <p class="product_description" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
+                </div>
+                <div>
+                    <span><strong class="pe-2">SKU:</strong>5636GH7</span>
+                    <strong class="px-3">/</strong>
+                    <span>
+                        <strong class="pe-2">Tag:</strong>
+                        <span style="color: var(--bs-blue);">Fask,</span>
+                        <span style="color: var(--bs-blue);">Gaming,</span>
+                        <span style="color: var(--bs-blue);">Strong</span>
+                    </span>
+                </div>
+            </div>
+
+            @*Spacility*@
+            <div id="Spacility" class="py-4 px-3 hide">
+                <div>
+                    <h4 class="pb-3 pt-2" style="font-size: 1.4rem;letter-spacing: 0.5px;">
+                        Technical Specs
+                    </h4>
+                    <div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Sound</h5>
+                            <p class="col-7">Audio</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">betteries</h5>
+                            <p class="col-7">4x AAA</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Series</h5>
+                            <p class="col-7">Mega 2</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Max Bass</h5>
+                            <p class="col-7">10 Levels</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Inputs</h5>
+                            <p class="col-7">3.5mm minijack</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div>
+                    <h4 class="pb-3 pt-2" style="font-size: 1.4rem;letter-spacing: 0.5px;">
+                        General
+                    </h4>
+                    <div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Weight</h5>
+                            <p class="col-7">7.5 kg</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Dimensions</h5>
+                            <p class="col-7"> 90 x 60 x 90 cm</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Size</h5>
+                            <p class="col-7">One Size Fits All</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Color</h5>
+                            <p class="col-7">White</p>
+                        </div>
+                        <div class="row spacification mb-3 ps-3">
+                            <h5 class="col-3">Guarentee</h5>
+                            <p class="col-7">5 Years</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="reviews" class="py-4 px-3 hide">
+                <div class="row">
+                    <div class="col-12 col-lg-6 pt-3">
+                        <h4 class="review_heading">Based on  3 Comments</h4>
+                        <div class="mt-4">
+                            <h3 class="over_count">4.3</h3>
+                            <p>Overall</p>
+                            <div>
+                                <div class="row py-sm-1 py-2">
+                                    <div class="col-12 col-md-3 col-sm-4">
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    </div>
+                                    <span class="dealBar col-10 col-md-7 col-sm-6" style=";">
+                                        <span class="dealBar1" style="width: 70%;margin-left: -4%"></span>
+                                    </span>
+                                    <span class="col-2 col-sm-1 col-md-2 " style="font-size: 1.2rem; font-weight: 600;">1</span>
+                                </div>
+                                <div class="row py-sm-1 py-2">
+                                    <div class="col-12 col-md-3 col-sm-4">
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    </div>
+                                    <span class="dealBar col-10 col-md-7 col-sm-6" style="">
+                                        <span class="dealBar1" style="width: 70%;margin-left: -4%;"></span>
+                                    </span>
+                                    <span class="col-2 col-sm-1 col-md-2" style="font-size: 1.2rem; font-weight: 600;">1</span>
+                                </div>
+                                <div class="row py-sm-1 py-2">
+                                    <div class="col-12 col-md-3 col-sm-4">
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    </div>
+                                    <span class="dealBar col-10 col-md-7 col-sm-6" style="">
+                                        <span class="dealBar1" style="width: 70%;margin-left: -4%;"></span>
+                                    </span>
+                                    <span class="col-2 col-sm-1 col-md-2" style="font-size: 1.2rem; font-weight: 600;">1</span>
+                                </div>
+                                <div class="row py-sm-1 py-2">
+                                    <div class="col-12 col-md-3 col-sm-4">
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    </div>
+                                    <span class="dealBar col-10 col-md-7 col-sm-6" style="">
+                                        <span class="dealBar1" style="width: 70%;margin-left: -4%;"></span>
+                                    </span>
+                                    <span class="col-2 col-sm-1 col-md-2" style="font-size: 1.2rem; font-weight: 600;">1</span>
+                                </div>
+
+                                <div class="row py-sm-1 py-2">
+                                    <div class="col-12 col-md-3 col-sm-4">
+                                        <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                        <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    </div>
+                                    <span class="dealBar col-10 col-md-7 col-sm-6" style="">
+                                        <span class="dealBar1" style="width: 70%;margin-left: -4%;"></span>
+                                    </span>
+                                    <span class="col-2 col-sm-1 col-md-2" style="font-size: 1.2rem; font-weight: 600;">1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 pt-3">
+                        <h4 class="review_heading">Add your Comment</h4>
+                        <form class="mt-2 mt-sm-4 review_form_container py-3">
+                            <div class="review_form py-2">
+                                <label class="col-3">Rating</label>
+                                <div class="col-8 col-sm-7" style="padding: 10px 0;">
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                </div>
+                            </div>
+                            <div class="review_form py-2">
+                                <label class="col-3">Nick</label>
+                                <input class="col-8 col-sm-7" type="text" placeholder="Your name or nick" />
+                            </div>
+                            <div class="review_form py-2">
+                                <label class="col-3">Review</label>
+                                <textarea class="col-8 col-sm-7" placeholder="Type your message"></textarea>
+                            </div>
+                            <div class="review_form py-2 justify-content-center">
+                                <button class="btn">Add Review</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="reviews py-4">
+                        <div>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                        </div>
+                        <p class="product_description p-2" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
+                        <div class="reviews_names">
+                            <h5 class="pe-4 m-0">Jhon Doe</h5>
+                            <p class="m-0"><span>15:44 PM</span> 13 Februry 2016</p>
+                        </div>
+                    </div>
+                    <div class="reviews py-4">
+                        <div>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                        </div>
+                        <p class="product_description p-2" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
+                        <div class="reviews_names">
+                            <h5 class="pe-4 m-0">Jhon Doe</h5>
+                            <p class="m-0"><span>15:44 PM</span> 13 Februry 2016</p>
+                        </div>
+                    </div>
+
+                    <div class="reviews py-4">
+                        <div>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                            <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                        </div>
+                        <p class="product_description p-2" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
+                        <div class="reviews_names">
+                            <h5 class="pe-4 m-0">Jhon Doe</h5>
+                            <p class="m-0"><span>15:44 PM</span> 13 Februry 2016</p>
+                        </div>
+                    </div>
+                    <div class="review_more">
+                        <button class="btn">Show more</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <section class="row pt-5 gap-3 justify-content-between">
+        <div class="col-12 col-sm-12">
+            <div class="row gap-2 justify-content-between" style="border-bottom: 1px solid var(--BorderColor)">
+                <h4 class="col-12 col-lg-3 heading_text ps-0">Related Products</h4>
+                @*<div class="col-12 row gap-2 justify-content-end align-items-center col-lg-9 text-end">
+                <a class="roundBtn active">Top 20</a>
+                <a class="roundBtn">Phones & Tablet</a>
+                <a class="roundBtn">laptops & Computer</a>
+                </div>*@
+            </div>
+
+            @*Top 20 Items*@
+            <div id="top20" class="IndexcategoryItems">
+                <p class="boxActive" hidden>Top 20</p>
+                <div class="row py-3">
+                    <div class="owl-carousel owl-theme ">
+                        @foreach (var featured in ViewBag.Products)
+                        {
+                            <div class="ecard p-2 col-12 position-relative" style="border-right: 1px solid #c1b1b1">
+
+                                <span class="badge rounded-pill text-bg-primary" style="position: absolute; right: 8%;">PV : @(featured.ProfitPoints)</span>
+
+                                @*<p class="card_text">@featured.CatName</p>*@
+                                <div class="abtnMain">
+                                    <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
+                                </div>
+                                <h5 class="card_heading">@featured.ShortName</h5>
+                                <div>
+                                    <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
+                                        @if (featured.MarkedPrice > featured.SalePrice)
+                                        {
+                                            <p class="card_pre_price">@Global.Currancy@featured.MarkedPrice</p>
+                                        }
+                                    </div>
+                                    <button class="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <partial name="brands" />
+</div>
+
+<partial name="FooterSignUp" />
+
+
+
+
+<script type="text/javascript">
+    let desBtn = document.getElementById("descriptionBtn");
+    let speBtn = document.getElementById("specificationBtn");
+    let revBtn = document.getElementById("reviewsBtn");
+    desBtn.addEventListener("click", () => {
+        desBtn.classList.add("active");
+        speBtn.classList.remove("active");
+        revBtn.classList.remove("active");
+
+        document.getElementById("description").classList.remove("hide");
+        document.getElementById("Spacility").classList.add("hide");
+        document.getElementById("reviews").classList.add("hide");
+    })
+    speBtn.addEventListener("click", () => {
+        desBtn.classList.remove("active");
+        speBtn.classList.add("active");
+        revBtn.classList.remove("active");
+
+        document.getElementById("description").classList.add("hide");
+        document.getElementById("Spacility").classList.remove("hide");
+        document.getElementById("reviews").classList.add("hide");
+    })
+    revBtn.addEventListener("click", () => {
+        desBtn.classList.remove("active");
+        speBtn.classList.remove("active");
+        revBtn.classList.add("active");
+
+        document.getElementById("description").classList.add("hide");
+        document.getElementById("Spacility").classList.add("hide");
+        document.getElementById("reviews").classList.remove("hide");
+    })
+</script>

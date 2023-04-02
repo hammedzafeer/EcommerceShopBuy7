@@ -76,10 +76,12 @@
                                 <div class="abtnMain">
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
                                 </div>
-                                <h5 class="card_heading">@featured.ShortName</h5>
-                                <div>
-                                    <img class="w-100" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
-                                </div>
+                                <a asp-action="Product" asp-route-id="@featured.ShortName">
+                                    <h5 class="card_heading">@featured.ShortName</h5>
+                                    <div>
+                                        <img class="w-100" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                    </div>
+                                </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
@@ -213,7 +215,9 @@
                                 </div>
                                 <hr />
                                 <div class="pt-4 px-3 pb-3 d-flex justify-content-center">
-                                    <h4 class="deal_heading">@d.Product.ShortName</h4>
+                                    <a asp-action="#" class="deal_heading">
+                                        @d.Product.ShortName
+                                    </a>
                                 </div>
                                 <div class="row justify-content-center pb-2">
                                     <h5 class="col-4 col-md-12 col-lg-4 dealMprice" style="font-family: var(--Mfont);text-decoration-line: line-through;">
@@ -228,7 +232,7 @@
                                     <p class="col-6 text-end">Already Solid:<strong class="dealSold">@d.Sold</strong></p>
                                 </div>
                                 <div>
-                                    <span class="dealBar">
+                                    <span class="dealBar w-100">
                                         <span class="dealBar1" style="width: 0%;"></span>
                                     </span>
                                 </div>
@@ -309,16 +313,16 @@
         <div class="col-12 col-lg-8">
             <div class="row gap-2 justify-content-between" style="border-bottom: 1px solid var(--BorderColor)">
                 <h4 class="col-3 heading_text ps-0">BestSallers</h4>
-              
+
                 <div class="col-12 row gap-2 justify-content-end align-items-center col-md-9 text-end">
                     <a class="roundBtn active">Top 20</a>
                     <a class="roundBtn">Phones & Tablet</a>
                     <a class="roundBtn">laptops & Computer</a>
                 </div>
-              @*  <select class="col-6 btn_768_show" >
-                    <option>Top 20</option>
-                    <option>Top 20</option>
-                    <option>Top 20</option>
+                @*  <select class="col-6 btn_768_show" >
+                <option>Top 20</option>
+                <option>Top 20</option>
+                <option>Top 20</option>
                 </select>*@
             </div>
 
@@ -756,12 +760,12 @@
         })
     }
 
-    function preDeal(e) {
-        console.log(e.target)
-    }
-    function nextDeal() {
-        console.log("Next")
-    }
+    //function preDeal(e) {
+    //    console.log(e.target)
+    //}
+    //function nextDeal() {
+    //    console.log("Next")
+    //}
 
     let d = 0;
     //deals();
@@ -813,9 +817,9 @@
                 hourinnerHTML = 0;
                 mininnerHTML = 0;
                 secinnerHTML = 0;
-                console.log(hourinnerHTML)
-                console.log(secinnerHTML)
-                console.log(mininnerHTML)
+                //console.log(hourinnerHTML)
+                //console.log(secinnerHTML)
+                //console.log(mininnerHTML)
                 clearInterval(timer);
             }
         }, 1000)

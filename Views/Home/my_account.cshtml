@@ -103,6 +103,24 @@
         margin: 1rem 0;
         border-radius: 2rem;
     }
+
+    @@media screen and (max-width: 991px){
+        .mainDeals-context::before{
+            display: none;
+        }
+
+        .or-text{
+            display: none;
+        }
+
+        .signIn {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--BorderColor);
+        }
+        .signup{
+            padding-top: 1rem;
+        }
+    }
 </style>
 
 <section class="container main-container position-relative mt-4 mb-4">
@@ -138,19 +156,33 @@
             </div>
         </div>
         <div class="col-12 col-lg-6">
-            <div class="signIn px-5">
+            <div class="signup px-5">
                 <div class="heading-container">
                     <h5 class="account-heading position-relative">Create New Account</h5>
                 </div>
                 <p class="heading-text">Create Your very own Shopbuy7 Account</p>
 
-                <form class="account-form">
+                <form class="account-form" id="regForm">
+                    <div class="form-input row justify-content-between align-items-center">
+                        <div class="row col-6">
+                            <label class="col-12">First Name</label>
+                            <input class="col-12" type="text" placeholder="" />
+                        </div>
+                        <div class="row col-6">
+                            <label class="col-12">Last Name</label>
+                            <input class="col-12" type="text" placeholder="" />
+                        </div>
+                    </div>
                     <div class="form-input row">
                         <label class="col-12">Email Address</label>
-                        <input class="col-12" type="email" placeholder="User Name or Email Address*" />
+                        <input class="col-12" id="email" name="email" type="email" placeholder="User Name or Email Address*" />
                     </div>
-
-                    <button class="btn" type="button">Register</button>
+                    <div class="form-input row">
+                        <label class="col-12">Contact</label>
+                        <input class="col-12" type="number" placeholder="" />
+                    </div>
+                    <input id="emailcode" hidden/>
+                    <button class="btn" onclick="register()" type="button">Register</button>
                 </form>
             </div>
         </div>

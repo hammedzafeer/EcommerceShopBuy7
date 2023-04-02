@@ -73,12 +73,33 @@ namespace ShopBuy7.Controllers
             }
             return products;
         }
-
+       
         public IActionResult my_account()
         {
             return View();
         }
 
+        public IActionResult Product()
+        {
+            //HomeModel model = new();
+            ViewBag.Products = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(10).ToList();
+            ViewBag.Products = getCatName(ViewBag.Products);
+
+            //var productDetails = context.Products.FirstOrDefault(x => x.ShortName == id);
+            ////productDetails = getCatName(ProblemDetails);
+
+            //if (productDetails != null)
+            //{
+            //    var category = context.Categories.FirstOrDefault(x => x.CategoryId == productDetails.FkCategoryId); 
+            //    productDetails.CategoryName = category.Name;
+            //    var sub = context.SubCategories.FirstOrDefault(x => x.SubCategoryId == productDetails.FkSubCategoryId);
+            //    productDetails.CatName = sub.Name;
+
+            //    return View(productDetails);
+            //}
+
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> LogIn(string username, string password)
         {
@@ -110,6 +131,7 @@ namespace ShopBuy7.Controllers
 
                             context.UserLogs.Add(userLog);
                             await context.SaveChangesAsync();
+
                             HttpContext.Session.SetString("name", customer.FName + " " + customer.LName);
                             HttpContext.Session.SetString("userid", customer.CustomerId.ToString());
                             return RedirectToAction("UserDashboard", "Home");
@@ -210,16 +232,31 @@ namespace ShopBuy7.Controllers
         }
 
         [HttpPost]
-        public JsonResult SearchProduct(string prefix)
+        public JsonResult SearchProduct(string prefix, int id)
         {
-            var searchs = (from search in context.Products
-                           where search.Name.Contains(prefix)
-                           select new
-                           {
-                               label = search.Name,
-                           }).Take(7).ToList();
+            if(id > 0)
+            {
+                var searchs = (from search in context.Products
+                               where search.Name.Contains(prefix) && search.FkSubCategoryId == id
+                               select new
+                               {
+                                   label = search.Name,
+                               }).Take(7).ToList();
 
-            return Json(searchs);
+                return Json(searchs);
+            }
+            else
+            {
+                var searchs = (from search in context.Products
+                               where search.Name.Contains(prefix)
+                               select new
+                               {
+                                   label = search.Name,
+                               }).Take(7).ToList();
+
+                return Json(searchs);
+            }
+            
         }
 
         [HttpPost]

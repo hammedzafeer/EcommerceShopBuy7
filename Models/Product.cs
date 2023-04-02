@@ -80,7 +80,10 @@ namespace ShopBuy7.Models
         public IFormFile MyImage { get; set; }
         [NotMapped]
         public string CatName { get; set; } = string.Empty;
-
+        [NotMapped]
+        public string CategoryName { get; set; } = string.Empty;
+        [NotMapped]
+        public List<ImageModel> Images { get; set; } = new();
     }
 
 }

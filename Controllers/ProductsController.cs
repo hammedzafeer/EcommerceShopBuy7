@@ -17,6 +17,10 @@ namespace ShopBuy7.Controllers
             _host = host;
         }
 
+        public IActionResult search(string search, int id)
+        {
+            return View();
+        }
 
         // GET: Products
         public async Task<IActionResult> Index()

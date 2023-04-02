@@ -20,6 +20,7 @@ namespace ShopBuy7.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
+
               return View(await context.Categories.ToListAsync());
         }
 

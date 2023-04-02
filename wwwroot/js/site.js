@@ -13,7 +13,13 @@ $(document).ready(function () {
         $("#cate_active").slideToggle("slow");
     });
 });
-
+let category_clicked = document.getElementsByClassName("category_clicked");
+let category_length = category_clicked.length;
+for (let i = 0; i < category_length; i++) {
+    category_clicked[i].addEventListener("click", (e) => {
+        console.log(e.target.parentElement.getElementsByTagName("ul")[0].classList.toggle("Act"))
+    })
+}
 //var swiper = new Swiper(".box-swiper", {
 //    slidesPerView: 3,
 //    centerSlide: true,
@@ -123,6 +129,33 @@ $('.one-card.owl-carousel').owlCarousel({
     }
 })
 $('.realted_deal .owl-carousel').owlCarousel({
+    loop: false,
+    autoplay: false,
+    dots: false,
+    nav: true,
+    responsiveClass: true,
+    paginationSpeed: true,
+    autoplayHoverPause: true,
+
+    margin: 7,
+
+    responsive: {
+        0: {
+            items: 2
+        },
+        480: {
+            items: 3
+        },
+        768: {
+            items: 3
+        },
+        991: {
+            items: 3
+        }
+    }
+})
+
+$('.product_img .owl-carousel').owlCarousel({
     loop: false,
     autoplay: false,
     dots: false,
