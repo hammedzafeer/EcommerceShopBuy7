@@ -1,4 +1,4 @@
-﻿@model ShopBuy7.Models.HomeModel
+﻿@model ShopBuy7.Models.Product
 
 @{
     ViewData["Title"] = "ProductDetails";
@@ -331,7 +331,7 @@
 
     .product_description {
         font-family: var(--Mfont);
-        -webkit-user-modify: read-write-plaintext-only;
+        /*-webkit-user-modify: read-write-plaintext-only;*/
         letter-spacing: 0.7px;
         word-spacing: 0.7px;
     }
@@ -452,6 +452,11 @@
             text-transform: none;
             font-weight: 500;
         }
+
+    .rStar {
+        cursor: pointer;
+        color: #a3a285;
+    }
 </style>
 <link rel="stylesheet" href="~/Magnifying/jquery.exzoom.css" />
 
@@ -461,11 +466,11 @@
         <div class="my-3">
             <span class="product_top_link"><a asp-action="Index">Home</a></span>
             <span class="product_top_arrow"> > </span>
-            <span class="product_top_link" style="background: #eee;"><a asp-action="#">Smartphones & Tablets</a></span>
+            <span class="product_top_link" style="background: #eee;"><a asp-action="#">@Model.CategoryName</a></span>
             <span class="product_top_arrow"> > </span>
-            <span class="product_top_link" style="background: #eee;"><a asp-action="#">Smartphones</a></span>
+            <span class="product_top_link" style="background: #eee;"><a asp-action="#">@Model.CatName</a></span>
             <span class="product_top_arrow"> > </span>
-            <span class="product_top_link"><a asp-action="#">Wireless Audio System Multiroom 360</a></span>
+            <span class="product_top_link"><a asp-action="#">@Model.ShortName</a></span>
         </div>
 
         @*Product Details image*@
@@ -478,11 +483,15 @@
                             @*<!-- Images -->*@
                             <div class="exzoom_img_box">
                                 <ul class='exzoom_img_ul'>
-                                    <li><img src="~/images/Products/1/1-p-230950789.png" /></li>
-                                    <li><img src="~/images/Products/1/1-p-235357013.jpg" /></li>
-                                    <li><img src="~/images/Products/1/10-p-233447750.jpg" /></li>
+                                    <li><img src="@("/images/Products/" + Model.FkCustomerId + "/" + Model.ImgUrl)" alt="" /></li>
+                                    @foreach (var i in Model.Images)
+                                    {
+                                        <li> <img src="@("/images/Products/" + Model.FkCustomerId + "/" + i.ImgUrl)" /></li>
+
+                                    }
+                                    @*<li><img src="~/images/Products/1/10-p-233447750.jpg" /></li>
                                     <li><img src="~/images/Products/1/10-s-233448203.jpg" /></li>
-                                    <li><img src="~/images/Products/1/11-s-235149508.jpeg" /></li>
+                                    <li><img src="~/images/Products/1/11-s-235149508.jpeg" /></li>*@
                                 </ul>
                             </div>
                             @*<!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> Nav-->
@@ -499,8 +508,8 @@
                     @*Product short Details*@
                     <div class="col-12 col-sm-6 col-lg-4 py-3 px-2" style="">
                         <div>
-                            <a class="product_subCatgory">Smartphones</a>
-                            <h4 class="product_name py-2">Wireless Audio System Multiroom 360</h4>
+                            <a class="product_subCatgory">@Model.CatName</a>
+                            <h4 class="product_name py-2">@Model.ShortName</h4>
                             <div class="product_logo py-2">
                                 <a asp-action="#"><img src="https://directlinedev.com/media/page_photos/0002/photo_2431.normal.png" /></a>
                             </div>
@@ -518,16 +527,17 @@
                                 <div class="tool-tip">
                                     <i class="fa-brands fa-square-facebook"></i>
                                     <p>Share</p>
-                                    <span class="tooltip-text">Tooltip text</span>
+                                    <span class="tooltip-text">0</span>
 
                                 </div>
                                 <div class="tool-tip" style="background: #e8e4e4cc; color: #000; border: 1px solid var(--BorderColor);">
                                     <i class="fa-brands fa-twitter" style="color: #1e3050;"></i>
                                     <p style="color: #000;">Tweet</p>
-                                    <span class="tooltip-text">Tooltip text</span>
+                                    <span class="tooltip-text">0</span>
                                 </div>
                             </div>
                             <ul class="product_details_spacility py-4">
+                                @*@foreach(var d in Mod)*@
                                 <li>4.5 inch HD</li>
                                 <li>4.5 inch HD</li>
                                 <li>4.5 inch HD</li>
@@ -543,15 +553,18 @@
                     @*Product cart section*@
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="cart_box px-4 py-3 mt-3">
-                            <p class="product_avail">Availability: <strong>In stock</strong></p>
+                            <p class="product_avail">Availability: <strong>@Model.AvailableQuantity</strong></p>
                             <div class="product_price_cotainer">
-                                <p class="product_pre_price">$ 1200</p>
-                                <p class="product_sale_price">$ 1100</p>
+                                @if (Model.MarkedPrice < Model.SalePrice)
+                                {
+                                    <p class="product_pre_price">@Global.Currancy@Model.MarkedPrice</p>
+                                }
+                                <p class="product_sale_price">@Global.Currancy@Model.SalePrice</p>
                             </div>
                             <form class="product_cart_form">
                                 <label>Quanity:</label>
                                 <div class="cart_input my-2">
-                                    <input type="number" min="1" value="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                    <input id="cart_inp" type="number" min="1" value="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
                                     <span class="cart_plus">+</span>
                                     <span class="cart_min">-</span>
                                 </div>
@@ -579,17 +592,18 @@
             <div id="description" class="py-4 px-3">
                 <div class="pb-2">
                     <h3 class="product_detail_title">Details</h3>
-                    <p class="product_description" style="font-style: italic;"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
+                    <p class="product_description" style="font-style: italic;">@Model.Description</p>
                 </div>
                 <div class="pb-3">
                     <h3 class="product_detail_title">Other Detais</h3>
-                    <p class="product_description" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
+                    <p class="product_description" style="font-family: var(--Ofont);">@Model.OtherDetail</p>
                 </div>
                 <div>
                     <span><strong class="pe-2">SKU:</strong>5636GH7</span>
                     <strong class="px-3">/</strong>
                     <span>
                         <strong class="pe-2">Tag:</strong>
+
                         <span style="color: var(--bs-blue);">Fask,</span>
                         <span style="color: var(--bs-blue);">Gaming,</span>
                         <span style="color: var(--bs-blue);">Strong</span>
@@ -635,7 +649,7 @@
                     <div>
                         <div class="row spacification mb-3 ps-3">
                             <h5 class="col-3">Weight</h5>
-                            <p class="col-7">7.5 kg</p>
+                            <p class="col-7">@Model.Weight</p>
                         </div>
                         <div class="row spacification mb-3 ps-3">
                             <h5 class="col-3">Dimensions</h5>
@@ -651,7 +665,7 @@
                         </div>
                         <div class="row spacification mb-3 ps-3">
                             <h5 class="col-3">Guarentee</h5>
-                            <p class="col-7">5 Years</p>
+                            <p class="col-7">@Model.Warranty</p>
                         </div>
                     </div>
 
@@ -738,76 +752,101 @@
                     </div>
                     <div class="col-12 col-lg-6 pt-3">
                         <h4 class="review_heading">Add your Comment</h4>
-                        <form class="mt-2 mt-sm-4 review_form_container py-3">
+                        <form asp-action="CreateReview" class="mt-2 mt-sm-4 review_form_container py-3">
                             <div class="review_form py-2">
                                 <label class="col-3">Rating</label>
                                 <div class="col-8 col-sm-7" style="padding: 10px 0;">
-                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
-                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
-                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
-                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
-                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star rStar"></i>
+                                    <i class="fa-solid fa-star rStar"></i>
+                                    <i class="fa-solid fa-star rStar"></i>
+                                    <i class="fa-solid fa-star rStar"></i>
+                                    <i class="fa-solid fa-star rStar"></i>
                                 </div>
                             </div>
+                            <input id="reviewCount" name="Stars" hidden />
+                            <input name="FkProductId" value="@Model.ProductId" hidden />
+
                             <div class="review_form py-2">
                                 <label class="col-3">Nick</label>
-                                <input class="col-8 col-sm-7" type="text" placeholder="Your name or nick" />
+                                <input name="Name" class="col-8 col-sm-7" type="text" placeholder="Your name or nick" />
                             </div>
                             <div class="review_form py-2">
                                 <label class="col-3">Review</label>
-                                <textarea class="col-8 col-sm-7" placeholder="Type your message"></textarea>
+                                <textarea name="Comment" class="col-8 col-sm-7" placeholder="Type your message"></textarea>
                             </div>
                             <div class="review_form py-2 justify-content-center">
-                                <button class="btn">Add Review</button>
+                                <button type="submit" class="btn">Add Review</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
                 <div>
-                    <div class="reviews py-4">
-                        <div>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #a3a285;"></i>
-                        </div>
-                        <p class="product_description p-2" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
-                        <div class="reviews_names">
-                            <h5 class="pe-4 m-0">Jhon Doe</h5>
-                            <p class="m-0"><span>15:44 PM</span> 13 Februry 2016</p>
-                        </div>
-                    </div>
-                    <div class="reviews py-4">
-                        <div>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #a3a285;"></i>
-                        </div>
-                        <p class="product_description p-2" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
-                        <div class="reviews_names">
-                            <h5 class="pe-4 m-0">Jhon Doe</h5>
-                            <p class="m-0"><span>15:44 PM</span> 13 Februry 2016</p>
-                        </div>
-                    </div>
+                    @foreach (var review in ViewBag.Review)
+                    {
+                        <div class="reviews py-4">
+                            @if(review.Stars == 1)
+                            {
+                                <div>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                </div>
+                            }
+                            else if(review.Stars == 2)
+                            {
+                                <div>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                </div>
+                            }
+                            
+                            else if(review.Stars == 3)
+                            {
+                                <div>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                </div>
+                            }
+                            
+                            else if(review.Stars == 4)
+                            {
+                                <div>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                                </div>
+                            }
+                            
+                            else if(review.Stars == 5)
+                            {
+                                <div>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                    <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
+                                </div>
+                            }
 
-                    <div class="reviews py-4">
-                        <div>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #f7ef08;"></i>
-                            <i class="fa-solid fa-star" style="color: #a3a285;"></i>
+                            <p class="product_description p-2" style="font-family: var(--Ofont);">@review.Comment</p>
+                            <div class="reviews_names">
+                                <h5 class="pe-4 m-0">@review.Name</h5>
+                                <p class="m-0"><span>15:44 PM</span> @review.DateAdded</p>
+                            </div>
                         </div>
-                        <p class="product_description p-2" style="font-family: var(--Ofont);"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat hic repellendus minima, et, cum sit rem nesciunt consectetur dolores doloremque officiis optio aliquam soluta quod beatae facilis deleniti ratione labore quae perspiciatis assumenda. Soluta repellat nostrum assumenda tenetur eveniet earum sapiente porro magnam, deleniti pariatur aspernatur delectus asperiores explicabo odit!</p>
-                        <div class="reviews_names">
-                            <h5 class="pe-4 m-0">Jhon Doe</h5>
-                            <p class="m-0"><span>15:44 PM</span> 13 Februry 2016</p>
-                        </div>
-                    </div>
+                    }
+                    
                     <div class="review_more">
                         <button class="btn">Show more</button>
                     </div>
@@ -845,10 +884,12 @@
                                 <div class="abtnMain">
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
                                 </div>
-                                <h5 class="card_heading">@featured.ShortName</h5>
-                                <div>
-                                    <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
-                                </div>
+                                <a asp-action="Product" asp-route-id="@featured.ShortName">
+                                    <h5 class="card_heading">@featured.ShortName</h5>
+                                    <div>
+                                        <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                    </div>
+                                </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
@@ -874,6 +915,8 @@
 
 
     <partial name="brands" />
+    <partial name="TopItems" />
+
 </div>
 
 <partial name="FooterSignUp" />
@@ -882,6 +925,20 @@
 
 
 <script type="text/javascript">
+    //CartBTN
+    let cart_plus = document.getElementsByClassName("cart_plus")[0];
+    let cart_min = document.getElementsByClassName("cart_min")[0];
+    let cart_inp = document.getElementById("cart_inp");
+    cart_plus.addEventListener("click", () => {
+        cart_inp.value++;
+    })
+    cart_min.addEventListener("click", () => {
+        cart_inp.value--;
+        if (cart_inp.value <= 1) {
+            cart_inp.value = 1;
+        }
+    })
+
     let desBtn = document.getElementById("descriptionBtn");
     let speBtn = document.getElementById("specificationBtn");
     let revBtn = document.getElementById("reviewsBtn");
@@ -911,5 +968,51 @@
         document.getElementById("description").classList.add("hide");
         document.getElementById("Spacility").classList.add("hide");
         document.getElementById("reviews").classList.remove("hide");
+    })
+    let star = document.getElementsByClassName("rStar");
+    let count = document.getElementById("reviewCount");
+    star[0].addEventListener("click", () => {
+        star[0].style.color = "#f7ef08";
+        star[1].style.color = "#a3a285";
+        star[2].style.color = "#a3a285";
+        star[3].style.color = "#a3a285";
+        star[4].style.color = "#a3a285";
+        count.value = 1;
+    })
+
+    star[1].addEventListener("click", () => {
+        star[0].style.color = "#f7ef08";
+        star[1].style.color = "#f7ef08";
+        star[2].style.color = "#a3a285";
+        star[3].style.color = "#a3a285";
+        star[4].style.color = "#a3a285";
+        count.value = 2;
+    })
+
+    star[2].addEventListener("click", () => {
+        star[0].style.color = "#f7ef08";
+        star[1].style.color = "#f7ef08";
+        star[2].style.color = "#f7ef08";
+        star[3].style.color = "#a3a285";
+        star[4].style.color = "#a3a285";
+        count.value = 3;
+    })
+
+    star[3].addEventListener("click", () => {
+        star[0].style.color = "#f7ef08";
+        star[1].style.color = "#f7ef08";
+        star[2].style.color = "#f7ef08";
+        star[3].style.color = "#f7ef08";
+        star[4].style.color = "#a3a285";
+        count.value = 4;
+    })
+
+    star[4].addEventListener("click", () => {
+        star[0].style.color = "#f7ef08";
+        star[1].style.color = "#f7ef08";
+        star[2].style.color = "#f7ef08";
+        star[3].style.color = "#f7ef08";
+        star[4].style.color = "#f7ef08";
+        count.value = 5;
     })
 </script>

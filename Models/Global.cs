@@ -13,10 +13,15 @@ namespace ShopBuy7.Models
         public static string Currancy { get; set; } = "Rs ";
         public static List<Category> Categories { get; set; } = new();
         public static List<SubCategory> SubCategories { get; set; } = new();
+        public static List<Product> featured { get; set; } = new();
+        public static List<Product> onSale { get; set; } = new();
+        public static List<Product> topRated { get; set; } = new();
+
         public static DateTime SetDateTime()
         {
             return DateTime.Now;
         }
+
 
 
         // Compress Image

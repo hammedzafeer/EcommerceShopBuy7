@@ -25,6 +25,7 @@ namespace ShopBuy7.Controllers
             HomeModel model = new();
             model.Products = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(10).ToList();
             model.Products = getCatName(model.Products);
+            model.Products = getCategoryName(model.Products);
             model.Featured = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted && x.IsFeatured).Take(10).ToList();
             model.Featured = getCatName(model.Featured);
             model.OnSale = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted && x.SalePrice < x.MarkedPrice).Take(10).ToList();
@@ -34,8 +35,11 @@ namespace ShopBuy7.Controllers
             model.Banners = context.Banners.OrderByDescending(x => x.BannerId).Where(x => x.IsActive).ToList();
             Global.Categories = model.Categories = context.Categories.OrderBy(x => x.Name).Where(x => !x.IsDeleted).ToList();
             Global.SubCategories = model.SubCategories = context.SubCategories.OrderBy(x => x.Name).Where(x => !x.IsDeleted).ToList();
+            Global.featured = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(3).ToList();
+            Global.onSale = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(3).ToList();
+            Global.topRated = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(3).ToList();
             model.Deals = context.Deals.OrderByDescending(x => x.DealId).Where(x => x.ExpiryDateTime > Global.SetDateTime()).ToList();
-            foreach(var d in model.Deals)
+            foreach (var d in model.Deals)
             {
                 var product = context.Products.Find(d.FkProductId);
                 d.Images = context.Images.Where(x => x.FkProductId == d.FkProductId).ToList();
@@ -43,26 +47,44 @@ namespace ShopBuy7.Controllers
                     d.Product = product;
                 d.RemainingTime = d.ExpiryDateTime - Global.SetDateTime();
                 var orderDetails = (from orderDetail in context.OrderDetails
-                                   join order in context.Orders
-                                   on orderDetail.FkOrderId equals order.OrderId
-                                   into od
-                                   from allOrders in od.DefaultIfEmpty()
-                                   where
-                                   orderDetail.FkProductId == d.FkProductId
-                                   && allOrders.DateAdded >= d.DateAdded
-                                   select orderDetail).ToList();
-                d.Sold = orderDetails.Sum(x => x.Quantity);                
+                                    join order in context.Orders
+                                    on orderDetail.FkOrderId equals order.OrderId
+                                    into od
+                                    from allOrders in od.DefaultIfEmpty()
+                                    where
+                                    orderDetail.FkProductId == d.FkProductId
+                                    && allOrders.DateAdded >= d.DateAdded
+                                    select orderDetail).ToList();
+                d.Sold = orderDetails.Sum(x => x.Quantity);
             }
             return View(model);
+        }
+
+        public List<Product> getCategoryName(List<Product> products)
+        {
+            var cats = context.Categories.Where(x => !x.IsDeleted).ToList();
+            foreach (var p in products)
+            {
+                var cat = cats.FirstOrDefault(x => x.CategoryId == p.FkCategoryId);
+                if (cat != null)
+                {
+                    p.CategoryName = cat.Name;
+                }
+                else
+                {
+                    p.CategoryName = "Unkown";
+                }
+            }
+            return products;
         }
 
         public List<Product> getCatName(List<Product> products)
         {
             var subcats = context.SubCategories.Where(x => !x.IsDeleted).ToList();
-            foreach(var p in products)
+            foreach (var p in products)
             {
-                var cat = subcats.FirstOrDefault(x => x.SubCategoryId == p.FkSubCategoryId); 
-                if(cat != null)
+                var cat = subcats.FirstOrDefault(x => x.SubCategoryId == p.FkSubCategoryId);
+                if (cat != null)
                 {
                     p.CatName = cat.Name;
                 }
@@ -73,33 +95,51 @@ namespace ShopBuy7.Controllers
             }
             return products;
         }
-       
+
         public IActionResult my_account()
         {
             return View();
         }
 
-        public IActionResult Product()
+        public IActionResult Product(string id)
         {
             //HomeModel model = new();
-            ViewBag.Products = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(10).ToList();
+            Global.Categories = context.Categories.OrderBy(x => x.Name).Where(x => !x.IsDeleted).ToList();
+            Global.SubCategories = context.SubCategories.OrderBy(x => x.Name).Where(x => !x.IsDeleted).ToList();
+            Global.featured = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(3).ToList();
+            Global.onSale = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(3).ToList();
+            Global.topRated = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted).Take(3).ToList();
+
+            var productDetails = context.Products.FirstOrDefault(x => x.ShortName == id);
+            //productDetails = getCatName(ProblemDetails);
+            ViewBag.Products = context.Products.OrderByDescending(x => x.ProductId).Where(x => x.IsActive && !x.IsDeleted && x.FkCategoryId == productDetails.FkCategoryId).Take(10).ToList();
             ViewBag.Products = getCatName(ViewBag.Products);
+            ViewBag.Review = context.Reviews.Where(x => x.FkProductId == productDetails.ProductId).ToList();
+            if (productDetails != null)
+            {
+                var category = context.Categories.FirstOrDefault(x => x.CategoryId == productDetails.FkCategoryId);
+                productDetails.CategoryName = category.Name;
+                var sub = context.SubCategories.FirstOrDefault(x => x.SubCategoryId == productDetails.FkSubCategoryId);
+                productDetails.CatName = sub.Name;
 
-            //var productDetails = context.Products.FirstOrDefault(x => x.ShortName == id);
-            ////productDetails = getCatName(ProblemDetails);
+                return View(productDetails);
+            }
 
-            //if (productDetails != null)
-            //{
-            //    var category = context.Categories.FirstOrDefault(x => x.CategoryId == productDetails.FkCategoryId); 
-            //    productDetails.CategoryName = category.Name;
-            //    var sub = context.SubCategories.FirstOrDefault(x => x.SubCategoryId == productDetails.FkSubCategoryId);
-            //    productDetails.CatName = sub.Name;
-
-            //    return View(productDetails);
-            //}
-
-            return View();
+            return NotFound();
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateReview(Review review)
+        {
+            if(review != null)
+            {
+                context.Reviews.Add(review);
+                context.SaveChanges();
+                return RedirectToAction("Product");
+            }
+            return NotFound();
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> LogIn(string username, string password)
         {
@@ -203,7 +243,7 @@ namespace ShopBuy7.Controllers
                     else if (claim.Value.Contains("Employee"))
                     {
                         c = "Employee";
-                    }                    
+                    }
                 }
                 string Action = "";
                 string Controller = "";
@@ -216,7 +256,7 @@ namespace ShopBuy7.Controllers
                     case "Employee":
                         Action = "EmployeeDashboard";
                         Controller = "Employees";
-                        break;                   
+                        break;
                 }
                 return RedirectToAction(Action, Controller);
             }
@@ -234,7 +274,7 @@ namespace ShopBuy7.Controllers
         [HttpPost]
         public JsonResult SearchProduct(string prefix, int id)
         {
-            if(id > 0)
+            if (id > 0)
             {
                 var searchs = (from search in context.Products
                                where search.Name.Contains(prefix) && search.FkSubCategoryId == id
@@ -256,7 +296,7 @@ namespace ShopBuy7.Controllers
 
                 return Json(searchs);
             }
-            
+
         }
 
         [HttpPost]

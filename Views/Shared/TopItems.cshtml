@@ -1,0 +1,165 @@
+﻿<style>
+    .top_container {
+    }
+
+    .top_contant {
+    }
+
+    .top_featured {
+    }
+
+    .top_item_title_contant {
+        border-bottom: 1px solid var(--BorderColor);
+        position: relative;
+        padding: 7px 0;
+    }
+
+    .top_item_title {
+        display: inline;
+        position: relative;
+        overflow: hidden;
+        padding: 10px 0;
+        font-size: 1.3rem;
+        letter-spacing: 0.7px;
+    }
+    .top_item_title::after{
+            content: "";
+            width: 100%;
+            display: inline-block;
+            height: 3px;
+            background: var(--BColor);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+    .top_item_container {
+    }
+
+    .top_item_contant {
+    }
+
+    .top_item_sec_1 {
+    }
+
+        .top_item_sec_1 img {
+            width: 100%;
+            height: auto;
+        }
+
+    .top_item_sec_2 {
+    }
+
+    .top_item_head {
+        /*background: red;*/
+        height: 60px;
+        overflow: hidden;
+        /*padding: 0.5rem 0;*/
+        font-size: 1.3rem;
+        letter-spacing: 0.7px;
+    }
+
+    .top_item_price_contant {
+        display: flex;
+        font-family: va;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .top_item_mark {
+        font-family: var(--Mfont);
+        letter-spacing: 0.6px;
+        font-size: 1.1rem;
+        text-decoration: underline;
+        text-decoration-line: line-through;
+    }
+
+    .top_item_sale {
+        font-family: var(--Pfont);
+        letter-spacing: 0.6px;
+        font-size: 1.3rem;
+    }
+</style>
+
+<div class="top_container pt-4">
+    <div class="row top_contant">
+        <div class="col-4 top_featured">
+            <div class="top_item_title_contant">
+                <h4 class="top_item_title">Featured Products</h4>
+            </div>
+            <div class="top_item_container">
+                @foreach(var i in Global.featured)
+                {
+                    <a asp-action="Product" asp-route-id="@i.ShortName">
+                    <div class="row top_item_contant py-3">
+                        <div class="top_item_sec_1 col-4">
+                            <img src="@("/images/Products/" + i.FkCustomerId + "/" + i.ImgUrl)" alt="" />
+                        </div>
+                        <div class="top_item_sec_2 col-7">
+                            <h4 class="top_item_head py-2">@i.ShortName</h4>
+                            <div class="top_item_price_contant">
+                                <p class="top_item_mark pe-3">@Global.Currancy @i.MarkedPrice</p>
+                                <p class="top_item_sale">@Global.Currancy @i.SalePrice</p>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                }
+               
+             
+
+            </div>
+        </div>
+        <div class="col-4 top_featured">
+            <div class="top_item_title_contant">
+                <h4 class="top_item_title">OnSale Products</h4>
+            </div>
+            <div class="top_item_container">
+                @foreach (var i in Global.onSale)
+                {
+                    <a asp-action="Product" asp-route-id="@i.ShortName">
+                        <div class="row top_item_contant py-3">
+                            <div class="top_item_sec_1 col-4">
+                                <img src="@("/images/Products/" + i.FkCustomerId + "/" + i.ImgUrl)" alt="" />
+                            </div>
+                            <div class="top_item_sec_2 col-7">
+                                <h4 class="top_item_head py-2">@i.ShortName</h4>
+                                <div class="top_item_price_contant">
+                                    <p class="top_item_mark pe-3">@Global.Currancy @i.MarkedPrice</p>
+                                    <p class="top_item_sale">@Global.Currancy @i.SalePrice</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+
+            </div>
+        </div>
+        <div class="col-4 top_featured">
+            <div class="top_item_title_contant">
+                <h4 class="top_item_title">Top Rated Products</h4>
+            </div>
+            <div class="top_item_container">
+                @foreach (var i in Global.topRated)
+                {
+                    <a asp-action="Product" asp-route-id="@i.ShortName">
+                        <div class="row top_item_contant py-3">
+                            <div class="top_item_sec_1 col-4">
+                                <img src="@("/images/Products/" + i.FkCustomerId + "/" + i.ImgUrl)" alt="" />
+                            </div>
+                            <div class="top_item_sec_2 col-7">
+                                <h4 class="top_item_head py-2">@i.ShortName</h4>
+                                <div class="top_item_price_contant">
+                                    <p class="top_item_mark pe-3">@Global.Currancy @i.MarkedPrice</p>
+                                    <p class="top_item_sale">@Global.Currancy @i.SalePrice</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+
+            </div>
+        </div>
+   
+    </div>
+</div>

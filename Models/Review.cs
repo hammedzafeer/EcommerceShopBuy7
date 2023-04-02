@@ -7,6 +7,7 @@ namespace ShopBuy7.Models
         [Key]
         [Display(Name = "Review Id")]
         public int ReviewId { get; set; }
+        public int FkProductId { get;set; }
 
         [Display(Name = "Name")]
         public string Name { get; set; } = string.Empty;

@@ -115,10 +115,12 @@
                                 <div class="abtnMain">
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@onSale.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@onSale.CatName</a>
                                 </div>
-                                <h5 class="card_heading">@onSale.ShortName</h5>
-                                <div>
-                                    <img class="w-100" src="@("/images/Products/" + onSale.FkCustomerId + "/" + onSale.ImgUrl)" alt="" />
-                                </div>
+                                <a asp-action="Product" asp-route-id="@onSale.ShortName">
+                                    <h5 class="card_heading">@onSale.ShortName</h5>
+                                    <div>
+                                        <img class="w-100" src="@("/images/Products/" + onSale.FkCustomerId + "/" + onSale.ImgUrl)" alt="" />
+                                    </div>
+                                </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <h5 class="@("card_price " + (onSale.MarkedPrice > onSale.SalePrice ? "redPrice" : ""))">@Global.Currancy@onSale.SalePrice</h5>
@@ -153,10 +155,12 @@
                                     @*<p class="card_text">@featured.FkCategoryId</p>*@
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@topRated.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@topRated.CatName</a>
                                 </div>
-                                <h5 class="card_heading">@topRated.ShortName</h5>
-                                <div>
-                                    <img class="w-100" src="@("/images/Products/" + topRated.FkCustomerId + "/" + topRated.ImgUrl)" alt="" />
-                                </div>
+                                <a asp-action="Product" asp-route-id="@topRated.ShortName">
+                                    <h5 class="card_heading">@topRated.ShortName</h5>
+                                    <div>
+                                        <img class="w-100" src="@("/images/Products/" + topRated.FkCustomerId + "/" + topRated.ImgUrl)" alt="" />
+                                    </div>
+                                </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <h5 class="@("card_price " + (topRated.MarkedPrice > topRated.SalePrice ? "redPrice" : ""))">@Global.Currancy@topRated.SalePrice</h5>
@@ -215,7 +219,7 @@
                                 </div>
                                 <hr />
                                 <div class="pt-4 px-3 pb-3 d-flex justify-content-center">
-                                    <a asp-action="#" class="deal_heading">
+                                    <a asp-action="Product" asp-route-id="@d.Product.ShortName" class="deal_heading">
                                         @d.Product.ShortName
                                     </a>
                                 </div>
@@ -287,23 +291,27 @@
                             <div class="abtnMain" style="width: fit-content;">
                                 <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@l.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@l.CatName</a>
                             </div>
-                            <div class="col-12">
-                                <img class="w-100" src="@("/images/Products/" + l.FkCustomerId + "/" + l.ImgUrl)" alt="" />
-                            </div>
-                            <div class="col-12">
-                                <h5 class="text-center">
-                                    @l.ShortName
-                                </h5>
-                                <div class="d-flex justify-content-between align-items-center pt-4">
-                                    <div class="d-flex justify-content-center w-100 align-items-center">
-                                        <h5 class="@("card_price " + (l.MarkedPrice > l.SalePrice ? "redPrice" : ""))">@Global.Currancy@l.SalePrice</h5>
-                                        @if (l.MarkedPrice > l.SalePrice)
-                                        {
-                                            <p class="card_pre_price">@Global.Currancy@l.MarkedPrice</p>
-                                        }
+                            <a asp-action="Product" asp-route-id="@l.ShortName">
+
+                                <div class="col-12">
+                                    <img class="w-100" src="@("/images/Products/" + l.FkCustomerId + "/" + l.ImgUrl)" alt="" />
+                                </div>
+                                <div class="col-12">
+                                    <h5 class="text-center">
+                                        @l.ShortName
+                                    </h5>
+                                    <div class="d-flex justify-content-between align-items-center pt-4">
+                                        <div class="d-flex justify-content-center w-100 align-items-center">
+                                            <h5 class="@("card_price " + (l.MarkedPrice > l.SalePrice ? "redPrice" : ""))">@Global.Currancy@l.SalePrice</h5>
+                                            @if (l.MarkedPrice > l.SalePrice)
+                                            {
+                                                <p class="card_pre_price">@Global.Currancy@l.MarkedPrice</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+
                         </div>
 
                     </div>
@@ -339,11 +347,13 @@
                                 <div class="abtnMain">
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@top.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@top.CatName</a>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
                                         <div>
-                                            <img class="w-100" src="@("/images/Products/" + top.FkCustomerId + "/" + top.ImgUrl)" alt="" />
-
+                                            <a asp-action="Product" asp-route-id="@top.ShortName">
+                                                <img class="w-100" src="@("/images/Products/" + top.FkCustomerId + "/" + top.ImgUrl)" alt="" />
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
@@ -581,10 +591,13 @@
                                 <div class="abtnMain">
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
                                 </div>
-                                <h5 class="card_heading">@featured.ShortName</h5>
-                                <div>
-                                    <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
-                                </div>
+                                <a asp-action="Product" asp-route-id="@featured.ShortName">
+
+                                    <h5 class="card_heading">@featured.ShortName</h5>
+                                    <div>
+                                        <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
+                                    </div>
+                                </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
@@ -617,10 +630,12 @@
                                 <div class="abtnMain">
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
                                 </div>
+                                 <a asp-action="Product" asp-route-id="@featured.ShortName">
                                 <h5 class="card_heading">@featured.ShortName</h5>
                                 <div>
                                     <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
                                 </div>
+                                </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
@@ -653,10 +668,12 @@
                                 <div class="abtnMain">
                                     <a asp-action="getProductsBySubCat" asp-controller="subcategories" asp-route-id="@featured.FkSubCategoryId" class="d-block card_text pb-3 aBtn">@featured.CatName</a>
                                 </div>
+                                 <a asp-action="Product" asp-route-id="@featured.ShortName">
                                 <h5 class="card_heading">@featured.ShortName</h5>
                                 <div>
                                     <img class="w-100" style="height: 100% !important;" src="@("/images/Products/" + featured.FkCustomerId + "/" + featured.ImgUrl)" alt="" />
                                 </div>
+                                </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <h5 class="@("card_price " + (featured.MarkedPrice > featured.SalePrice ? "redPrice" : ""))">@Global.Currancy@featured.SalePrice</h5>
@@ -681,6 +698,7 @@
     @*Category Wise Product list End*@
 
     <partial name="brands" />
+    <partial name="TopItems" />
 
 </div>
 <partial name="FooterSignUp" />
